@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Taiwan Pride 🌈｜Reservation Confirmation｜10/24 週五晚餐名單</title>
+<style>
+  :root{
+    /* S2 風格色盤 */
+    --bg:#0A0B0F; --card:#10131A; --muted:#9AA4AF; --fg:#F2F5F8; --border:#1f2430;
+    --ok:#22c55e; --warn:#f59e0b; --bad:#ef4444;
+    --rainbow: linear-gradient(90deg,#ff5f6d,#ffc371,#9be15d,#00e3ae,#45aaf2,#9b59b6);
+    --btn-grad: linear-gradient(90deg,#7dd3fc,#86efac);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",ui-sans-serif,system-ui;
+    background: radial-gradient(800px 600px at 10% -10%, rgba(255,255,255,.06), transparent), var(--bg);
+    color:var(--fg);
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:980px;margin:28px auto 64px;padding:0 14px}
+
+  /* ===== 標題三行（白字＋光暈） ===== */
+  .tl .t1,.tl .t2,.tl .t3{color:#fff;text-shadow:0 0 8px rgba(255,255,255,.28),0 0 18px rgba(255,255,255,.12)}
+  .tl .t1{font-size:28px;font-weight:900;line-height:1.15}
+  .tl .t2{font-size:22px;font-weight:800;opacity:.95}
+  .tl .t3{font-size:16px;font-weight:700;opacity:.9}
+
+  .rainbow-line{height:2px;background:var(--rainbow);opacity:.6;border-radius:2px;margin:6px 0 14px}
+
+  /* Leader 漸層字 */
+  .rbtext{
+    background:var(--rainbow);
+    -webkit-background-clip:text;background-clip:text;
+    color:transparent;
+    text-shadow:0 0 12px rgba(255,255,255,.08);
+    font-weight:900;
+    letter-spacing:.2px;
+  }
+
+  /* 搜尋卡 */
+  .card{
+    position:relative;border-radius:16px;padding:14px;border:1px solid rgba(255,255,255,.06);
+    background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));
+    box-shadow:0 10px 30px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.03);
+  }
+  .row{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,2fr) minmax(0,1fr);gap:8px;align-items:end}
+  label{font-size:12px;color:var(--muted);margin-bottom:4px;display:block}
+  .input-wrap{display:flex;flex-direction:column;min-width:0}
+  input,button{width:100%;padding:11px 12px;border-radius:12px;border:1px solid var(--border);background:#0f1117;color:var(--fg);outline:none;font-size:14px}
+  input::placeholder{color:#6b7280}
+  /* 搜尋按鈕：漸層青色 */
+  button.primary{background:var(--btn-grad);border:0;color:#0b0c10;font-weight:900;letter-spacing:.2px}
+  button.primary:hover{filter:saturate(1.08);}
+
+  .preview{margin-top:8px;display:flex;gap:10px;flex-wrap:wrap}
+  .preview img{max-height:86px;border-radius:8px;border:1px solid #2b3244}
+
+  .result-head{font-size:13px;color:var(--muted);margin:10px 2px 6px}
+
+  /* 結果列表 */
+  .grid{display:flex;flex-direction:column;gap:6px}
+  .person{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px;display:grid;grid-template-columns:1fr;gap:6px;overflow:hidden}
+  .line{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:nowrap}
+  .left,.right{display:flex;gap:10px;align-items:center;min-width:0}
+  .left .flag{font-size:18px}
+
+  /* 第一行：旗 / 國家 / 姓名 / IG */
+  .namebar{
+    display:grid;
+    grid-template-columns: auto minmax(0,28%) minmax(0,42%) minmax(0,30%);
+    align-items:center;
+    gap:10px;
+    min-width:0;
+  }
+  .namebar .flag{ font-size:18px; }
+  .namebar .country,
+  .namebar .personN,
+  .namebar .ig{
+    min-width:0;
+  }
+  .namebar .country{ color:#E9EEF5; opacity:.95; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  /* 預設先給較小字體（你要求「再小一點」） */
+  .namebar .personN{ color:#fff; font-weight:900; letter-spacing:.2px; font-size:15px; }
+  .namebar .ig{ color:#aeb7c2; font-size:12px; }
+
+  /* 桌機寬度：NAME、IG 不再強制省略，允許自動換行顯示完整 */
+  @media (min-width: 861px){
+    .namebar{ grid-template-columns: auto minmax(0,22%) minmax(0,48%) minmax(0,30%); }
+    .namebar .personN,
+    .namebar .ig{
+      white-space:normal; overflow:visible; text-overflow:unset;
+    }
+  }
+
+  /* 狀態徽章（描邊圈＋空心符號；雙行無斜線） */
+  .status{display:inline-flex;align-items:center;gap:8px}
+  .badge{width:22px;height:22px;border-radius:999px;display:grid;place-items:center;background:transparent}
+  .badge svg{width:14px;height:14px}
+  .badge.ok{border:2px solid var(--ok)}
+  .badge.warn{border:2px solid var(--warn)}
+  .badge.bad{border:2px solid var(--bad)}
+  .status-label{display:flex;flex-direction:column;line-height:1.05}
+  .status-label .zh{font-size:12px}
+  .status-label .en{font-size:11px;opacity:.9}
+
+  /* 「開啟連結」：無外框、螢光風、小尺寸 */
+  .link-btn{padding:6px 9px;border-radius:10px;border:none;background:rgba(0,255,209,.08);
+    box-shadow:0 0 0 1px rgba(0,255,209,.25),0 0 18px rgba(0,255,209,.18) inset,0 0 20px rgba(0,255,209,.15);
+    color:#e5e7eb;font-size:12px;font-weight:700}
+  .link-btn:hover{box-shadow:0 0 0 1px rgba(0,255,209,.4),0 0 26px rgba(0,255,209,.25) inset,0 0 26px rgba(0,255,209,.22)}
+
+  /* 確認／下載：更小、兩行 */
+  .actions{display:flex;gap:10px;justify-content:space-between}
+  .btn{padding:6px 9px;border-radius:12px;border:1px solid #2b3244;background:#0f1117;color:#e5e7eb;cursor:pointer;font-size:12.5px}
+  .btn:hover{border-image:var(--rainbow) 1;border-width:1px;border-style:solid}
+  .btn .zh{display:block;font-weight:800}
+  .btn .en{display:block;font-size:11px;opacity:.9;font-weight:700}
+
+  /* 左下：一隻貓（上傳邀請卡底圖） */
+  .cat-wrap{position:fixed;left:12px;bottom:12px;display:flex;gap:8px;opacity:.9;z-index:30}
+  .cat-btn{width:56px;height:56px;border-radius:50%;background:#0f1117;border:1px solid #2b3244;display:grid;place-items:center;cursor:pointer;transition:transform .08s ease, box-shadow .2s}
+  .cat-btn:hover{box-shadow:0 0 0 2px rgba(255,255,255,.06), 0 8px 20px rgba(0,0,0,.35)}
+  .cat-btn:active{transform:scale(.97)}
+  .cat svg{width:30px;height:30px;stroke:#e5e7eb}
+
+  /* Toast */
+  .toast{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);background:#0f1117;border:1px solid #2b3244;color:#e5e7eb;padding:8px 12px;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.45);opacity:0;transition:opacity .25s;z-index:60}
+  .toast.show{opacity:1}
+
+  /* Modal */
+  .backdrop{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.6);z-index:50}
+  .modal{width:min(640px,92vw);background:#0f1117;border-radius:16px;border:1px solid #2b3244;padding:14px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+  .modal .title2{margin:0 0 10px;font-size:18px;font-weight:800}
+  .modal .rb{height:2px;background:var(--rainbow);opacity:.5;border-radius:2px;margin-bottom:10px}
+  .opts{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 8px}
+  .opt{flex:1;min-width:240px;padding:10px 12px;border-radius:12px;border:1px dashed #2b3244;background:#0f1117;color:#9aa4af;cursor:pointer;text-align:center;font-weight:800}
+  .opt.active{color:#0b0c10;background:linear-gradient(90deg,#a7f3d0,#93c5fd);border:0}
+  textarea{width:100%;padding:10px 12px;border-radius:12px;border:1px solid #2b3244;background:#0f1117;color:#e5e7eb;min-height:90px}
+  .modal .actions{display:flex;gap:10px;justify-content:flex-end;margin-top:10px}
+  .btn-line{border:1px solid #2b3244;background:#0f1117;color:#e5e7eb}
+  .btn-fill{background:transparent;border:1px solid transparent;border-image:var(--rainbow) 1;font-weight:900}
+
+  /* 手機微縮與 IG 自動換行（必要時才省略） */
+  @media (max-width:860px){
+    .row{grid-template-columns:1fr}
+    .actions{justify-content:space-between}
+    .namebar .personN,
+    .namebar .ig{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  }
+  @media (max-width:420px){
+    .namebar{grid-template-columns:auto minmax(0,40%) minmax(0,60%);row-gap:6px}
+    .namebar .ig{grid-column:2 / 5}
+    .tl .t1{font-size:24px}
+    .tl .t2{font-size:18px}
+    .tl .t3{font-size:14px}
+    .btn{font-size:12px}
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- 三行標題（白字＋光暈） -->
+    <div class="title tl">
+      <div class="t1">Taiwan Pride 🌈</div>
+      <div class="t2">Reservation Confirmation</div>
+      <div class="t3">10/24 週五晚餐名單</div>
+    </div>
+    <div class="rainbow-line"></div>
+
+    <div class="card">
+      <!-- 搜尋列 -->
+      <div class="row">
+        <div class="input-wrap">
+          <label>姓名 / NAME</label>
+          <input id="nameInput" list="nameList" placeholder="輸入或選擇姓名 / Type or choose a name" />
+          <datalist id="nameList"></datalist>
+        </div>
+        <div class="input-wrap">
+          <label>IG 帳號 / IG</label>
+          <input id="igInput" list="igList" placeholder="輸入或選擇 IG / Type or choose IG" />
+          <datalist id="igList"></datalist>
+        </div>
+        <div class="input-wrap">
+          <button id="searchBtn" class="primary">搜尋 / Search</button>
+        </div>
+      </div>
+
+      <!-- 底圖預覽（上傳成功才會出現縮圖） -->
+      <div id="bgPreview" class="preview" aria-label="invitation previews"></div>
+
+      <div id="head" class="result-head">資料載入中… / Loading roster…</div>
+      <div id="grid" class="grid"></div>
+    </div>
+  </div>
+
+  <!-- 左下角：一隻貓（上傳邀請卡底圖；僅提示密碼於 prompt，不在畫面顯示） -->
+  <div class="cat-wrap" aria-label="hidden-control">
+    <div id="btnUploadBG" class="cat-btn" title="上傳邀請卡底圖 Upload invitation background">
+      <svg class="cat" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M6 8C6 5 7 3 9.5 4.5L12 6l2.5-1.5C17 3 18 5 18 8c2 1 3 3.5 3 6 0 4-3.5 8-9 8S3 18 3 14c0-2.5 1-5 3-6Z" />
+      </svg>
+    </div>
+  </div>
+
+  <!-- 隱藏 input（只剩底圖） -->
+  <input id="fileBG" type="file" accept="image/*" style="display:none" />
+
+  <!-- Confirm Modal -->
+  <div id="confirmBackdrop" class="backdrop">
+    <div class="modal">
+      <div class="title2">出席確認 / Attendance Confirmation</div>
+      <div class="rb"></div>
+      <div class="opts">
+        <div class="opt" data-val="confirmed">確認訂位，我會參加<br>Confirm reservation</div>
+        <div class="opt" data-val="cancelled">抱歉，無法參加<br>Sorry - cannot attend</div>
+      </div>
+      <div class="input-wrap"><label>備註 / Notes</label><textarea id="noteArea" placeholder="寫點想說的話 / Leave a note"></textarea></div>
+      <div class="actions">
+        <button id="confirmCancel" class="btn btn-line"><span class="zh">取消</span><span class="en">Cancel</span></button>
+        <button id="confirmSubmit" class="btn btn-fill"><span class="zh">送出</span><span class="en">Submit</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
+
+  <script>
+  /* ========== (1) 設定：把這裡換成你的 GAS URL ========== */
+  const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxJdToNoRIc2q5-jT53c6jwcD6WNNDbNOBmhqE2ulDLmNDsBDo86hCVqj32AI9Fp53n/exec';
+  const PASSWORD = '0714'; // 上傳底圖保護用（僅 prompt）
+
+  /* ========== (2) 狀態 ========== */
+  const state = {
+    rows: [],          // 雲端 roster
+    bgImages: [],      // 上傳的邀請卡底圖
+    selected: null,    // 正在 confirm 的人
+    confirmChoice: null
+  };
+
+  /* ========== (3) 小工具 ========== */
+  const $ = (id)=>document.getElementById(id);
+  const showToast = (msg)=>{ const t=$('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 1500) };
+  const norm = (s)=> (s||'').toString().trim().toLowerCase();
+  const unique = (arr)=>[...new Set(arr)];
+  const by = (k)=>(a,b)=> (a[k]||'').localeCompare(b[k]||'');
+
+  /* ========== (4) 讀雲端名單（GAS） ========== */
+  async function fetchRoster(){
+    try{
+      if(!WEB_APP_URL){ $('head').textContent='尚未設定資料端點 / No WEB_APP_URL'; return; }
+      const res = await fetch(WEB_APP_URL + '?mode=roster', { method:'GET', cache:'no-store' });
+      if(!res.ok) throw new Error('network');
+      const data = await res.json();
+      state.rows = Array.isArray(data) ? data : (data.rows || []);
+      rebuildDatalists();
+      $('head').textContent = '請於上方輸入「姓名或 IG」後搜尋 / Type NAME or IG to search';
+    }catch(e){
+      console.error(e);
+      $('head').textContent = '名單載入失敗 / Failed to load roster';
+    }
+  }
+
+  function rebuildDatalists(){
+    const dlN = $('nameList'); const dlI = $('igList');
+    dlN.innerHTML = ''; dlI.innerHTML = '';
+    unique(state.rows.map(r=>r.name).filter(Boolean).sort()).forEach(v=>{
+      const o=document.createElement('option'); o.value=v; dlN.appendChild(o);
+    });
+    unique(state.rows.map(r=>r.ig).filter(Boolean).sort()).forEach(v=>{
+      const o=document.createElement('option'); o.value=v; dlI.appendChild(o);
+    });
+  }
+
+  /* ========== (5) 上傳邀請卡底圖（只有這個需要密碼） ========== */
+  document.getElementById('btnUploadBG').addEventListener('click', ()=>{
+    const p = prompt('請輸入密碼 / Enter password');
+    if(p===null) return;
+    if(p!==PASSWORD){ showToast('密碼錯誤 / Wrong password'); return; }
+    document.getElementById('fileBG').click();
+  });
+  document.getElementById('fileBG').addEventListener('change', async (e)=>{
+    const files = Array.from(e.target.files||[]); if(!files.length) return;
+    state.bgImages = [];
+    for(const f of files){
+      const img = await fileToImage(f);
+      state.bgImages.push(img);
+    }
+    renderBGPreview();
+    showToast('邀請函底圖已載入 / Invitation background loaded');
+    e.target.value='';
+  });
+  function fileToImage(file){
+    return new Promise((res,rej)=>{ const img=new Image(); img.onload=()=>res(img); img.onerror=rej; img.src=URL.createObjectURL(file); });
+  }
+  function renderBGPreview(){
+    const box=document.getElementById('bgPreview'); box.innerHTML='';
+    state.bgImages.forEach(img=>{ const el=document.createElement('img'); el.src=img.src; box.appendChild(el);});
+  }
+
+  /* ========== (6) 搜尋 ========== */
+  document.getElementById('searchBtn').addEventListener('click', search);
+  document.getElementById('nameInput').addEventListener('keydown',e=>{if(e.key==='Enter') search();});
+  document.getElementById('igInput').addEventListener('keydown',e=>{if(e.key==='Enter') search();});
+
+  function search(){
+    const qn = norm(document.getElementById('nameInput').value);
+    const qi = norm(document.getElementById('igInput').value);
+    if(!state.rows.length){ showToast('雲端名單尚未就緒 / Roster not ready'); return; }
+
+    let sel = null;
+    if(qi) sel = state.rows.find(r=>norm(r.ig)===qi);
+    if(!sel && qn) sel = state.rows.find(r=>norm(r.name)===qn);
+
+    let rows=[]; let leader='';
+    if(sel){ leader = sel.leader; rows = state.rows.filter(r=>norm(r.leader)===norm(leader)); }
+    else{
+      const cand = state.rows.filter(r=> (qi && norm(r.ig).includes(qi)) || (qn && norm(r.name).includes(qn)) );
+      if(cand.length){ leader = cand[0].leader; rows = state.rows.filter(r=>norm(r.leader)===norm(leader)); }
+    }
+    renderList(rows, leader);
+  }
+
+  /* ========== (7) 列表渲染 ========== */
+  function renderList(rows, leader){
+    const grid = document.getElementById('grid'); grid.innerHTML='';
+    if(!rows || !rows.length){ document.getElementById('head').textContent='查無資料 / No results'; return; }
+    document.getElementById('head').innerHTML = leader
+      ? `桌長 / Leader：<b class="rbtext">${leader||'—'}</b>（${rows.length} 筆 / records）`
+      : `共 ${rows.length} 筆 / records`;
+
+    rows.sort((a,b)=> by('country')(a,b) || by('name')(a,b));
+    for(const r of rows){ grid.appendChild(renderPerson(r)); }
+  }
+
+  function renderPerson(r){
+    const card = document.createElement('div'); card.className='person';
+
+    /* 第一行：旗 / 國家 / 姓名 / IG（桌機可自動換行顯示完整） */
+    const L1 = document.createElement('div'); L1.className='line';
+    const left1 = document.createElement('div'); left1.className='left namebar';
+    const flag = document.createElement('div'); flag.className='flag'; flag.textContent = r.flag || '—';
+    const ctry = document.createElement('span'); ctry.className='country'; ctry.textContent = (r.country||'—');
+    const personN = document.createElement('span'); personN.className='personN'; personN.textContent = (r.name||'—');
+    const ig = document.createElement('span'); ig.className='ig'; ig.textContent = (r.ig||'—');
+    left1.append(flag, ctry, personN, ig);
+    L1.append(left1, document.createElement('div'));
+
+    /* 第二行（左：狀態；右：開啟連結） */
+    const L2 = document.createElement('div'); L2.className='line';
+    const left2 = document.createElement('div'); left2.className='left'; left2.append(buildStatus(r.status));
+    const right2 = document.createElement('div'); right2.className='right';
+    if(r.link){
+      const a=document.createElement('a');
+      a.href=r.link; a.target='_blank'; a.rel='noopener noreferrer';
+      a.className='link-btn'; a.textContent='開啟連結 / Open link';
+      right2.appendChild(a);
+    }
+    L2.append(left2,right2);
+
+    /* 第三行：Confirm / Download（小尺寸＋中英分行） */
+    const L3 = document.createElement('div'); L3.className='actions';
+    const btnC = document.createElement('button'); btnC.className='btn';
+    btnC.innerHTML='<span class="zh">確認</span><span class="en">Confirm</span>';
+    btnC.addEventListener('click',()=> openConfirm(r));
+
+    const btnD = document.createElement('button'); btnD.className='btn';
+    btnD.innerHTML='<span class="zh">邀請函下載</span><span class="en">Download Invite</span>';
+    btnD.addEventListener('click',()=> downloadInvite(r));
+
+    L3.append(btnC, btnD);
+    card.append(L1,L2,L3);
+    return card;
+  }
+
+  function buildStatus(status){
+    const box=document.createElement('div'); box.className='status';
+    const s = (status||'').toString().trim().toLowerCase();
+    let type='warn', zh='未回覆', en='Pending', icon='?';
+    if(s==='confirmed'){ type='ok'; zh='已確定訂位'; en='Confirmed'; icon='✔'; }
+    else if(s==='cancelled'){ type='bad'; zh='取消參加'; en='Cancelled'; icon='✕'; }
+    const badge=document.createElement('div'); badge.className='badge '+type; badge.innerHTML = svgIcon(icon);
+    const lab=document.createElement('div'); lab.className='status-label';
+    lab.innerHTML = `<span class="zh">${zh}</span><span class="en">${en}</span>`;
+    box.append(badge,lab); return box;
+  }
+  function svgIcon(char){
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><text x="12" y="16" text-anchor="middle" font-size="14" font-family="ui-sans-serif, system-ui">${char}</text></svg>`;
+  }
+
+  /* ========== (8) Confirm Modal ========== */
+  const modal=document.getElementById('confirmBackdrop');
+  const noteArea=document.getElementById('noteArea');
+  const btnSubmit=document.getElementById('confirmSubmit');
+  document.querySelectorAll('.opt').forEach(el=> el.addEventListener('click',()=> selectOpt(el)) );
+  document.getElementById('confirmCancel').addEventListener('click', ()=> closeModal());
+
+  function openConfirm(person){
+    state.selected = person; state.confirmChoice = null; noteArea.value='';
+    document.querySelectorAll('.opt').forEach(o=>o.classList.remove('active'));
+    modal.style.display='flex';
+  }
+  function selectOpt(el){
+    document.querySelectorAll('.opt').forEach(o=>o.classList.remove('active'));
+    el.classList.add('active'); state.confirmChoice = el.dataset.val;
+  }
+  function closeModal(){ modal.style.display='none'; }
+
+  btnSubmit.addEventListener('click', async ()=>{
+    if(!state.confirmChoice){ showToast('請選擇一個選項 / Please choose an option'); return; }
+    const person = state.selected; if(!person){ closeModal(); return; }
+    const payload = {
+      action:'updateStatus',
+      item: person.item, number: person.number, country: person.country, flag: person.flag,
+      name: person.name, ig: person.ig, leader: person.leader, link: person.link,
+      status: state.confirmChoice, notes: noteArea.value.trim(), ts: Date.now()
+    };
+
+    btnSubmit.disabled=true; btnSubmit.textContent='傳送中… / Sending…';
+    try{
+      const res = await fetch(WEB_APP_URL, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(payload), mode:'cors', cache:'no-store' });
+      let ok=false; try{ const j=await res.json(); ok=!!j.ok || Array.isArray(j); }catch{ ok=res.ok; }
+      if(!ok) throw new Error('SERVER_NOK');
+      person.status = state.confirmChoice;
+      showToast('已送出並更新狀態 / Submitted & updated');
+      closeModal();
+      search();
+    }catch(err){
+      console.error(err);
+      showToast('送出失敗，請稍後再試 / Failed to submit');
+    }finally{ btnSubmit.disabled=false; btnSubmit.textContent='送出 / Submit'; }
+  });
+
+  /* ========== (9) 邀請卡下載：item-number 置於安全區（直/橫自適） ========== */
+  async function downloadInvite(person){
+    if(!state.bgImages.length){ showToast('請先上傳邀請卡底圖 / Upload background first'); return; }
+    const img = state.bgImages[0];
+    const canvas = document.createElement('canvas'); const ctx = canvas.getContext('2d');
+    const W = img.naturalWidth, H = img.naturalHeight; canvas.width=W; canvas.height=H;
+    ctx.drawImage(img,0,0,W,H);
+
+    const isH = W>=H;
+    const box = isH
+      ? { x: 0.60*W, y: 0.70*H, w: 0.35*W, h: 0.18*H } /* 橫式安全區 */
+      : { x: 0.15*W, y: 0.60*H, w: 0.70*W, h: 0.16*H }; /* 直式安全區 */
+
+    const text = `${person.item||''}-${person.number||''}`.trim();
+    const fontFamily = 'ui-sans-serif, system-ui, "Noto Sans TC", "Microsoft JhengHei"';
+    ctx.textBaseline='middle'; ctx.textAlign='center';
+    let fontSize = Math.min(box.h*0.6, box.w*0.22);
+    while(fontSize>10){
+      ctx.font = `800 ${fontSize}px ${fontFamily}`;
+      const w = ctx.measureText(text).width;
+      if(w<=box.w) break;
+      fontSize -= 1;
+    }
+    const cx = box.x + box.w/2, cy = box.y + box.h/2;
+    ctx.shadowColor = 'rgba(0,0,0,.35)'; ctx.shadowBlur=8; ctx.fillStyle = '#fff';
+    ctx.fillText(text, cx, cy);
+
+    const a=document.createElement('a');
+    const safeName = (person.name||'guest').replace(/[^\w\u4e00-\u9fa5-]+/g,'_');
+    a.download = `${person.item||''}-${person.number||''}-${safeName}.png`;
+    a.href = canvas.toDataURL('image/png'); a.click();
+  }
+
+  /* ========== (10) 啟動 ========== */
+  function init(){ fetchRoster(); }
+  init();
+  </script>
+</body>
+</html>
