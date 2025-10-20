@@ -58,6 +58,8 @@
 
   .preview{margin-top:8px;display:flex;gap:10px;flex-wrap:wrap}
   .preview img{max-height:86px;border-radius:8px;border:1px solid #2b3244}
+  /* 新增：首頁不要顯示底圖縮圖 */
+  #bgPreview{display:none !important;}
 
   .result-head{font-size:13px;color:var(--muted);margin:10px 2px 6px}
 
@@ -223,7 +225,7 @@
   .ig-link svg{width:16px;height:16px;display:block}
   .ig-link:hover{background:linear-gradient(90deg, rgba(255,192,203,.25), rgba(255,105,180,.25));box-shadow:0 0 6px rgba(255,182,193,.4), inset 0 0 4px rgba(255,182,193,.2)}
 
-  /* ===== IG 圖示按鈕（使用提供的圖片；移除底線；邊緣彩虹光暈） ===== */
+  /* ===== IG 圖示按鈕 ===== */
   .link-btn.ig-btn{
     position: relative !important; display: inline-grid !important; place-items: center !important;
     width: 28px !important; height: 28px !important; padding: 0 !important; border: none !important;
@@ -300,7 +302,7 @@
         </div>
       </div>
 
-      <!-- 底圖預覽（上傳成功／或自動載入 card.* 成功才會出現縮圖） -->
+      <!-- 底圖預覽（隱藏顯示，但仍保留節點） -->
       <div id="bgPreview" class="preview" aria-label="invitation previews"></div>
 
       <div id="head" class="result-head">資料載入中… / Loading roster… <span class="spinner" aria-hidden="true"></span></div>
@@ -308,7 +310,7 @@
     </div>
   </div>
 
-  <!-- 右下角：RAKU（上傳邀請卡底圖；僅提示密碼於 prompt，不在畫面顯示） -->
+  <!-- 右下角：RAKU（上傳邀請卡底圖） -->
   <div class="cat-wrap" aria-label="hidden-control">
     <div id="btnUploadBG" class="cat-btn" title="上傳邀請卡底圖 Upload invitation background">
       <img src="RAKU.png" alt="Upload background" class="upload-icon">
@@ -331,6 +333,23 @@
       <div class="actions">
         <button id="confirmCancel" class="btn btn-line"><span class="zh">取消</span><span class="en">Cancel</span></button>
         <button id="confirmSubmit" class="btn btn-fill"><span class="zh">送出</span><span class="en">Submit</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 新增：邀請函預覽 Modal -->
+  <div id="previewBackdrop" class="backdrop">
+    <div class="modal" style="width:min(860px,96vw);">
+      <div class="title2">邀請函預覽 / Invite Preview</div>
+      <div class="rb"></div>
+      <div style="max-height:70vh;overflow:auto;display:grid;place-items:center;padding:6px;">
+        <img id="invitePreviewImg" alt="Invite preview" style="max-width:100%;height:auto;border-radius:12px;border:1px solid #2b3244"/>
+      </div>
+      <div class="actions">
+        <a id="btnDownloadPNG" class="btn btn-fill" href="#" download="invite.png">
+          <span class="zh">下載 PNG</span><span class="en">Download PNG</span>
+        </a>
+        <button id="previewClose" class="btn btn-line"><span class="zh">關閉</span><span class="en">Close</span></button>
       </div>
     </div>
   </div>
@@ -410,7 +429,7 @@ async function tryLoadCardBackgrounds(){
     try{
       const img = await loadImageRelative(name);
       state.bgImages = [img];
-      renderBGPreview();
+      renderBGPreview(); // 仍呼叫，但 #bgPreview 已隱藏
       showToast('已自動載入 card 底圖');
       return;
     }catch(_){}
@@ -441,7 +460,7 @@ $('fileBG').addEventListener('change', async (e)=>{
     const img = await fileToImage(f);
     state.bgImages.push(img);
   }
-  renderBGPreview();
+  renderBGPreview(); // 仍更新，但不顯示
   showToast('邀請函底圖已載入 / Invitation background loaded');
   e.target.value='';
 });
@@ -610,7 +629,7 @@ btnSubmit.addEventListener('click', async ()=>{
   }finally{ btnSubmit.disabled=false; btnSubmit.textContent='送出 / Submit'; }
 });
 
-/* ========== (9) 邀請卡下載（只放 QRCode + number） ========== */
+/* ========== (9) 邀請卡下載（底部中間 QR + 較小 number，並以彈窗預覽） ========== */
 /* —— 外部 API 產生 QR：api.qrserver.com —— */
 async function downloadInvite(person){
   if(!state.bgImages.length){
@@ -632,10 +651,12 @@ async function downloadInvite(person){
   // 先畫底圖
   ctx.drawImage(bg,0,0,W,H);
 
-  // === QR 置中（整張圖片中央），尺寸依寬度 22% ===
-  const qrSize = Math.floor(0.22 * W);
+  // === QR 放在「底部中間」 ===
+  const margin = 0.08 * Math.min(W,H);     // 底部邊距
+  const qrSize = Math.floor(0.22 * W);     // 依寬度 22%
+  const textGap = qrSize / 3;              // 為下方文字預留的間距
   const qrX = Math.floor((W - qrSize) / 2);
-  const qrY = Math.floor((H - qrSize) / 2);
+  const qrY = Math.floor(H - margin - qrSize - textGap);
 
   // 產生 QR 圖
   const encoded = encodeURIComponent(content);
@@ -649,10 +670,10 @@ async function downloadInvite(person){
   qrImg.src = apiURL;
   try{ await loaded; }catch(err){ console.error(err); showToast('QR 產生失敗，請稍後再試'); return; }
 
-  // 貼上 QR（置中）
+  // 貼上 QR（底部中間）
   ctx.drawImage(qrImg, qrX, qrY, qrSize, qrSize);
 
-  // number：字體 ≈ QR 的「1/4」（比之前 1/2 再小一半），置於 QR 正下方 1/3
+  // number：字體為 QR 的 1/4，置於 QR 正下方 1/3
   const fontSize = Math.max(10, Math.floor(qrSize * 0.25));
   ctx.font = `800 ${fontSize}px ui-sans-serif, system-ui, "Noto Sans TC","Microsoft JhengHei"`;
   ctx.textAlign = 'center';
@@ -666,13 +687,23 @@ async function downloadInvite(person){
   ctx.strokeText(numberText, textCX, textCY);
   ctx.fillText(numberText, textCX, textCY);
 
-  // 下載
+  // 產出 dataURL，改用「彈窗預覽 + 手動下載」，相容 Chrome
+  const dataURL = canvas.toDataURL('image/png');
+  const img = $('invitePreviewImg');
+  const dl = $('btnDownloadPNG');
+  img.src = dataURL;
+  // 設定下載檔名
   const safeName = (person.name||'guest').replace(/[^\w\u4e00-\u9fa5-]+/g,'_');
-  const a=document.createElement('a');
-  a.download = `invite_${person.number||''}_${safeName}.png`;
-  a.href = canvas.toDataURL('image/png');
-  a.click();
+  dl.download = `invite_${person.number||''}_${safeName}.png`;
+  dl.href = dataURL;
+  openPreview();
 }
+
+/* === 預覽彈窗控制 === */
+const previewBackdrop = $('previewBackdrop');
+$('previewClose').addEventListener('click', closePreview);
+function openPreview(){ previewBackdrop.style.display='flex'; }
+function closePreview(){ previewBackdrop.style.display='none'; }
 
 /* ========== (10) 啟動 ========== */
 function init(){
