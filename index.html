@@ -611,7 +611,7 @@ btnSubmit.addEventListener('click', async ()=>{
 });
 
 /* ========== (9) 邀請卡下載（只放 QRCode + number） ========== */
-/* —— 改為外部 API 產生 QR：api.qrserver.com —— */
+/* —— 外部 API 產生 QR：api.qrserver.com —— */
 async function downloadInvite(person){
   if(!state.bgImages.length){
     showToast('找不到邀請卡底圖，請放同資料夾的 card.* 或用 RAKU 上傳');
@@ -632,35 +632,28 @@ async function downloadInvite(person){
   // 先畫底圖
   ctx.drawImage(bg,0,0,W,H);
 
-  // QR 位置與尺寸（靠右下，邊距 8%，邊長 22% 寬）
-  const margin = 0.08 * Math.min(W,H);
-  const qrSize = Math.floor(0.22 * W); // 依寬度比例
-  const qrX = Math.floor(W - margin - qrSize);
-  const qrY = Math.floor(H - margin - qrSize - (qrSize * 0.8)); // 預留下方文字空間
+  // === QR 置中（整張圖片中央），尺寸依寬度 22% ===
+  const qrSize = Math.floor(0.22 * W);
+  const qrX = Math.floor((W - qrSize) / 2);
+  const qrY = Math.floor((H - qrSize) / 2);
 
-  // ==== 使用外部 API 產生 QR PNG ====
+  // 產生 QR 圖
   const encoded = encodeURIComponent(content);
   const apiURL = `https://api.qrserver.com/v1/create-qr-code/?size=${qrSize}x${qrSize}&ecc=M&data=${encoded}`;
-
   const qrImg = new Image();
-  qrImg.crossOrigin = 'anonymous'; // 避免 tainted canvas，方便下載
+  qrImg.crossOrigin = 'anonymous';
   const loaded = new Promise((resolve,reject)=>{
-    qrImg.onload = ()=> resolve();
+    qrImg.onload = resolve;
     qrImg.onerror = ()=> reject(new Error('QR API 載入失敗'));
   });
   qrImg.src = apiURL;
-  try{ await loaded; }
-  catch(err){
-    console.error(err);
-    showToast('QR 產生失敗，請稍後再試');
-    return;
-  }
+  try{ await loaded; }catch(err){ console.error(err); showToast('QR 產生失敗，請稍後再試'); return; }
 
-  // 貼上 QR
+  // 貼上 QR（置中）
   ctx.drawImage(qrImg, qrX, qrY, qrSize, qrSize);
 
-  // number：字體 ≈ QR 的 1/2，置中於 QR 正下方 1/3 處
-  const fontSize = Math.max(10, Math.floor(qrSize * 0.5));
+  // number：字體 ≈ QR 的「1/4」（比之前 1/2 再小一半），置於 QR 正下方 1/3
+  const fontSize = Math.max(10, Math.floor(qrSize * 0.25));
   ctx.font = `800 ${fontSize}px ui-sans-serif, system-ui, "Noto Sans TC","Microsoft JhengHei"`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
