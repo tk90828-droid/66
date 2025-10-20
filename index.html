@@ -49,7 +49,7 @@
   .row{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,2fr) minmax(0,1fr);gap:8px;align-items:end}
   label{font-size:12px;color:var(--muted);margin-bottom:4px;display:block}
   .input-wrap{display:flex;flex-direction:column;min-width:0}
-  input,button{width:100%;padding:11px 12px;border-radius:12px;border:1px solid var(--border);background:#0f1117;color:var(--fg);outline:none;font-size:14px}
+  input,button{width:100%;padding:11px 12px;border-radius:12px;border:1px solid var(--border);background:#0f1117;color:#0f1117;color:var(--fg);outline:none;font-size:14px}
   input::placeholder{color:#6b7280}
 
   /* 搜尋按鈕：漸層青色 */
@@ -187,7 +187,7 @@
     color:#47D45A !important; font-weight:900 !important; text-shadow:0 0 6px rgba(71,212,90,.65) !important;
   }
   .status .badge.warn + .status-label .zh, .status .badge.warn + .status-label .en{
-    color:#FFC000 !important; font-weight:900 !important; text-shadow:0 0 6px rgba(255,192,0,.6) !important;
+    color:#FFC000 !麼 !important; font-weight:900 !important; text-shadow:0 0 6px rgba(255,192,0,.6) !important;
   }
   .status .badge.bad + .status-label .zh, .status .badge.bad + .status-label .en{
     color:#C00000 !important; font-weight:900 !important; text-shadow:0 0 6px rgba(192,0,0,.6) !important;
@@ -611,65 +611,53 @@ btnSubmit.addEventListener('click', async ()=>{
 });
 
 /* ========== (9) 邀請卡下載（只放 QRCode + number） ========== */
-/* —— 內建極小型 QR 產生器（davidshimjs/QRCode.js 的精簡版） —— */
-!function(){function l(a,b){this._el=a,this._htOption=b}
-function m(a,b){this._oErrorCorrectLevel=b,this._modules=null,this._moduleCount=0,this._dataList=[],this._dataCache=null,this.addData(a)}
-m.prototype={addData:function(a){this._dataList.push({mode:4,data:a})},make:function(){
-  for(var a=1;a<41;a++){this._moduleCount=4*a+17;this._modules=new Array(this._moduleCount);
-  for(var b=0;b<this._moduleCount;b++)this._modules[b]=new Array(this._moduleCount);
-  try{this._setupPositionProbePattern(0,0),this._setupPositionProbePattern(this._moduleCount-7,0),
-    this._setupPositionProbePattern(0,this._moduleCount-7),this._setupPositionAdjustPattern(),
-    this._setupTimingPattern(),this._setupTypeInfo(!0,0),this._mapData(this._createData(a,this._oErrorCorrectLevel));
-    return}catch(c){continue}}throw new Error("Too long data")}
-, isDark:function(a,b){if(a<0||this._moduleCount<=a||b<0||this._moduleCount<=b)throw new Error(a+","+b);return this._modules[a][b]}
-, getModuleCount:function(){return this._moduleCount}
-,_setupPositionProbePattern:function(a,b){for(var c=-1;7>=c;c++)if(!(a+c<=-1||this._moduleCount<=a+c))for(var d=-1;7>=d;d++)b+d<=-1||this._moduleCount<=b+d||(this._modules[a+c][b+d]=c>=0&&6>=c&&(0==d||6==d)||d>=0&&6>=d&&(0==c||6==c)||c>=2&&4>=c&&d>=2&&4>=d)}
-,_getBestMaskPattern:function(){return 0}
-,_setupTimingPattern:function(){for(var a=8;a<this._moduleCount-8;a++)null==this._modules[a][6]&&(this._modules[a][6]=a%2==0),null==this._modules[6][a]&&(this._modules[6][a]=a%2==0)}
-,_setupPositionAdjustPattern:function(){function a(a){return a<2?0:a<7?1:a<13?2:a<20?3:a<28?4:a<36?5:6}
-for(var b=m.PATTERN_POSITION_TABLE[a(this._moduleCount) ],c=0;c<b.length;c++)for(var d=0;d<b.length;d++){var e=b[c],f=b[d];if(null==this._modules[e][f])for(var g=-2;g<=2;g++)for(var h=-2;h<=2;h++)this._modules[e+g][f+h]=-2==g||2==g||-2==h||2==h||0==g&&0==h}
-}
-,_setupTypeInfo:function(){for(var a=0;a<9;a++)this._modules[a][8]=a%2==0,this._modules[8][a]=a%2==0;
-for(var b=this._moduleCount-8;b<this._moduleCount;b++)this._modules[b][8]=b%2==0,this._modules[8][b]=b%2==0}
-,_createData:function(a,b){var c=[];for(var d of this._dataList){c.push(4);var e=d.data.length;c.push((e>>8)&255),c.push(255&e);for(var i=0;i<e;i++)c.push(d.data.charCodeAt(i))}
-return c}
-,_mapData:function(a){for(var b=-1,c=this._moduleCount-1,d=7,e=0;c>0;c-=2){6==c&&c--;for(;;){for(var f=0;2>f;f++)null==this._modules[c-f][d]&&(this._modules[c-f][d]=(a[e>>3]>>(7-e%8)&1)==1,e++);if(d+=b,0>d||this._moduleCount<=d){d-=b,b=-b;break}}}}
-};m.PATTERN_POSITION_TABLE=[[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46]];
-window.SimpleQR={renderToCanvas:function(canvas,text,size){var qr=new m(text,1);qr.make();var n=qr.getModuleCount(),ctx=canvas.getContext('2d'),cc=Math.floor(size/n),s=cc*n;canvas.width=canvas.height=s;ctx.fillStyle='#fff';ctx.fillRect(0,0,s,s);ctx.fillStyle='#000';
-for(var r=0;r<n;r++)for(var c=0;c<n;c++)qr.isDark(r,c)&&ctx.fillRect(c*cc,r*cc,cc,cc);return canvas}};
-}();
-
-/* —— 生成：把 r.qrcode → QR，並在正下方 1/3 處印出 r.number（字體≈QR的一半） —— */
+/* —— 改為外部 API 產生 QR：api.qrserver.com —— */
 async function downloadInvite(person){
   if(!state.bgImages.length){
     showToast('找不到邀請卡底圖，請放同資料夾的 card.* 或用 RAKU 上傳');
     return;
   }
-  const content = (person.qrcode || '').toString();
+  const content = (person.qrcode || '').toString().trim();
   const numberText = (person.number || '').toString();
   if(!content){ showToast('此列沒有 qrcode 欄位內容'); return; }
 
   const bg = state.bgImages[0];
   const W = bg.naturalWidth || bg.width, H = bg.naturalHeight || bg.height;
 
+  // 主畫布
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
   canvas.width = W; canvas.height = H;
 
-  // 繪底圖
+  // 先畫底圖
   ctx.drawImage(bg,0,0,W,H);
 
-  // 設定 QR 的位置與尺寸（靠右下，邊距 8%，邊長 22% 寬）
+  // QR 位置與尺寸（靠右下，邊距 8%，邊長 22% 寬）
   const margin = 0.08 * Math.min(W,H);
   const qrSize = Math.floor(0.22 * W); // 依寬度比例
   const qrX = Math.floor(W - margin - qrSize);
-  const qrY = Math.floor(H - margin - qrSize - (qrSize * 0.8)); // 留空間給下方文字
+  const qrY = Math.floor(H - margin - qrSize - (qrSize * 0.8)); // 預留下方文字空間
 
-  // 產 QR 於暫存 canvas 再貼上
-  const qrCanvas = document.createElement('canvas');
-  SimpleQR.renderToCanvas(qrCanvas, content, qrSize);
-  // 加白底（已含），再畫到主畫布
-  ctx.drawImage(qrCanvas, qrX, qrY, qrSize, qrSize);
+  // ==== 使用外部 API 產生 QR PNG ====
+  const encoded = encodeURIComponent(content);
+  const apiURL = `https://api.qrserver.com/v1/create-qr-code/?size=${qrSize}x${qrSize}&ecc=M&data=${encoded}`;
+
+  const qrImg = new Image();
+  qrImg.crossOrigin = 'anonymous'; // 避免 tainted canvas，方便下載
+  const loaded = new Promise((resolve,reject)=>{
+    qrImg.onload = ()=> resolve();
+    qrImg.onerror = ()=> reject(new Error('QR API 載入失敗'));
+  });
+  qrImg.src = apiURL;
+  try{ await loaded; }
+  catch(err){
+    console.error(err);
+    showToast('QR 產生失敗，請稍後再試');
+    return;
+  }
+
+  // 貼上 QR
+  ctx.drawImage(qrImg, qrX, qrY, qrSize, qrSize);
 
   // number：字體 ≈ QR 的 1/2，置中於 QR 正下方 1/3 處
   const fontSize = Math.max(10, Math.floor(qrSize * 0.5));
@@ -677,12 +665,11 @@ async function downloadInvite(person){
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillStyle = '#ffffff';
-  ctx.strokeStyle = 'rgba(0,0,0,.35)';
-  ctx.lineWidth = Math.ceil(fontSize * 0.12);
+  ctx.strokeStyle = 'rgba(0,0,0,.38)';
+  ctx.lineWidth = Math.ceil(fontSize * 0.14);
 
   const textCX = qrX + qrSize/2;
   const textCY = qrY + qrSize + (qrSize/3);
-  // 先描邊再填色，提升可讀性
   ctx.strokeText(numberText, textCX, textCY);
   ctx.fillText(numberText, textCX, textCY);
 
