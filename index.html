@@ -28,7 +28,6 @@
   .tl .t1{font-size:28px;font-weight:900;line-height:1.15}
   .tl .t2{font-size:22px;font-weight:800;opacity:.95}
   .tl .t3{font-size:16px;font-weight:700;opacity:.9}
-
   .rainbow-line{height:2px;background:var(--rainbow);opacity:.6;border-radius:2px;margin:6px 0 14px}
 
   /* Leader 漸層字 */
@@ -52,6 +51,7 @@
   .input-wrap{display:flex;flex-direction:column;min-width:0}
   input,button{width:100%;padding:11px 12px;border-radius:12px;border:1px solid var(--border);background:#0f1117;color:var(--fg);outline:none;font-size:14px}
   input::placeholder{color:#6b7280}
+
   /* 搜尋按鈕：漸層青色 */
   button.primary{background:var(--btn-grad);border:0;color:#0b0c10;font-weight:900;letter-spacing:.2px}
   button.primary:hover{filter:saturate(1.08);}
@@ -66,7 +66,6 @@
   .person{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px;display:grid;grid-template-columns:1fr;gap:6px;overflow:hidden}
   .line{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:nowrap}
   .left,.right{display:flex;gap:10px;align-items:center;min-width:0}
-  .left .flag{font-size:18px}
 
   /* 第一行：旗 / 國家 / 姓名 / IG */
   .namebar{display:flex;align-items:center;gap:8px;min-width:0}
@@ -84,27 +83,15 @@
     .namebar .personN{color:#fff;font-weight:900;font-size:15px;flex:1 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .namebar .ig{color:#aeb7c2;font-size:13px;text-align:right;flex:0 1 38%;max-width:40%;min-width:56px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   }
-  /* 預設小字體（維持既有樣式） */
-  .namebar .personN{color:#fff;font-weight:900;font-size:15px;flex:1 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .namebar .ig{color:#aeb7c2;font-size:13px;text-align:right;flex:0 1 38%;max-width:40%;min-width:56px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-
-  @media (min-width: 861px){
-    .namebar .personN,.namebar .ig{
-      color:#aeb7c2;font-size:13px;text-align:right;flex:0 1 38%;max-width:40%;min-width:56px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis
-    }
-  }
 
   /* === 狀態徽章（厚外圈＋深色內心＋白色符號；高級感） === */
   .status{display:inline-flex;align-items:center;gap:8px}
   .badge{position:relative;width:22px;height:22px;display:grid;place-items:center;filter:drop-shadow(0 1px 2px rgba(0,0,0,.45))}
   .badge svg{width:22px;height:22px;display:block}
-  .badge.ok{color:var(--ok)}
-  .badge.warn{color:var(--warn)}
-  .badge.bad{color:var(--bad)}
+  .badge.ok{color:var(--ok)} .badge.warn{color:var(--warn)} .badge.bad{color:var(--bad)}
   .badge .ring{fill:#0f1117;stroke:currentColor;stroke-width:2.6}
   .badge .glyph{stroke:#fff;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;fill:none}
   .badge .glyph-text{fill:#fff;font-size:12px;font-family:ui-sans-serif,system-ui;dominant-baseline:middle;text-anchor:middle}
-
   .status-label{display:flex;flex-direction:column;line-height:1.05}
   .status-label .zh{font-size:12px}
   .status-label .en{font-size:11px;opacity:.9}
@@ -155,10 +142,6 @@
     }
   }
   @media (max-width:420px){
-    .namebar{}
-    .namebar .ig{
-      color:#aeb7c2;font-size:13px;text-align:right;flex:0 1 38%;max-width:40%;min-width:56px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis
-    }
     .tl .t1{font-size:24px}
     .tl .t2{font-size:18px}
     .tl .t3{font-size:14px}
@@ -177,90 +160,50 @@
   .spinner{
     display:inline-block;width:14px;height:14px;margin-left:8px;vertical-align:-2px;
     border:2px solid rgba(255,255,255,.18);border-top-color:#a7f3d0;border-radius:50%;
-    animation:spin 0.9s linear infinite; box-shadow:0 0 10px rgba(167,243,208,.35)
+    animation:spin 0.9s linear infinite;
+    box-shadow:0 0 10px rgba(167,243,208,.35)
   }
   @keyframes spin{to{transform:rotate(360deg)}}
 
   /* === 状態文字彩色光暈（未回覆=橘 / 已確認=綠 / 取消=紅） === */
-  .status .badge.warn + .status-label .zh,
-  .status .badge.warn + .status-label .en{
+  .status .badge.warn + .status-label .zh, .status .badge.warn + .status-label .en{
     text-shadow:0 0 6px rgba(245,158,11,.65), 0 0 12px rgba(245,158,11,.35);
   }
-  .status .badge.ok + .status-label .zh,
-  .status .badge.ok + .status-label .en{
+  .status .badge.ok + .status-label .zh, .status .badge.ok + .status-label .en{
     text-shadow:0 0 6px rgba(34,197,94,.60), 0 0 12px rgba(34,197,94,.30);
   }
-  .status .badge.bad + .status-label .zh,
-  .status .badge.bad + .status-label .en{
+  .status .badge.bad + .status-label .zh, .status .badge.bad + .status-label .en{
     text-shadow:0 0 6px rgba(239,68,68,.60), 0 0 12px rgba(239,68,68,.30);
   }
 
   /* name 與 IG 金色（覆蓋） */
-  .namebar .personN,
-  .namebar .ig{
-    background: linear-gradient(180deg,
-      #EAD28A 0%,
-      #D9B550 35%,
-      #B98A32 70%,
-      #7A6027 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent !important;
-    font-weight: 900 !important;
+  .namebar .personN, .namebar .ig{
+    background: linear-gradient(180deg, #EAD28A 0%, #D9B550 35%, #B98A32 70%, #7A6027 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent !important; font-weight: 900 !important;
   }
 
-  /* ===== Overrides for status colors, buttons, and link button ===== */
-  .status .badge.ok + .status-label .zh,
-  .status .badge.ok + .status-label .en{
-    color:#47D45A !important;
-    font-weight:900 !important;
-    text-shadow:0 0 6px rgba(71,212,90,.65) !important;
+  /* ===== Overrides for status colors, buttons, and link button per request ===== */
+  .status .badge.ok + .status-label .zh, .status .badge.ok + .status-label .en{
+    color:#47D45A !important; font-weight:900 !important; text-shadow:0 0 6px rgba(71,212,90,.65) !important;
   }
-  .status .badge.warn + .status-label .zh,
-  .status .badge.warn + .status-label .en{
-    color:#FFC000 !important;
-    font-weight:900 !important;
-    text-shadow:0 0 6px rgba(255,192,0,.6) !important;
+  .status .badge.warn + .status-label .zh, .status .badge.warn + .status-label .en{
+    color:#FFC000 !important; font-weight:900 !important; text-shadow:0 0 6px rgba(255,192,0,.6) !important;
   }
-  .status .badge.bad + .status-label .zh,
-  .status .badge.bad + .status-label .en{
-    color:#C00000 !important;
-    font-weight:900 !important;
-    text-shadow:0 0 6px rgba(192,0,0,.6) !important;
+  .status .badge.bad + .status-label .zh, .status .badge.bad + .status-label .en{
+    color:#C00000 !important; font-weight:900 !important; text-shadow:0 0 6px rgba(192,0,0,.6) !important;
   }
-
   .actions .btn{
-    border: none !important;
-    background: rgba(0,255,209,.08) !important;
-    box-shadow: 0 0 0 1px rgba(0,255,209,.25),
-                0 0 18px rgba(0,255,209,.18) inset,
-                0 0 20px rgba(0,255,209,.15) !important;
-    color: #e5e7eb !important;
-    font-weight: 800 !important;
-    padding: 6px 9px;
-    border-radius: 10px;
+    border: none !important; background: rgba(0,255,209,.08) !important;
+    box-shadow: 0 0 0 1px rgba(0,255,209,.25), 0 0 18px rgba(0,255,209,.18) inset, 0 0 20px rgba(0,255,209,.15) !important;
+    color: #e5e7eb !important; font-weight: 800 !important; padding: 6px 9px; border-radius: 10px;
   }
   .actions .btn:hover{
     background: rgba(0,255,209,.08) !important;
-    box-shadow: 0 0 0 1px rgba(0,255,209,.35),
-                0 0 22px rgba(0,255,209,.22) inset,
-                0 0 24px rgba(0,255,209,.20) !important;
-    border: 1px solid transparent !important;
-    border-image: var(--rainbow) 1 !important;
+    box-shadow: 0 0 0 1px rgba(0,255,209,.35), 0 0 22px rgba(0,255,209,.22) inset, 0 0 24px rgba(0,255,209,.20) !important;
+    border: 1px solid transparent !important; border-image: var(--rainbow) 1 !important;
   }
-
-  .link-btn{
-    background: transparent !important;
-    box-shadow: none !important;
-    border: none !important;
-    color: #00FFD1 !important;
-    text-decoration: underline !important;
-    padding: 0 !important;
-    border-radius: 0 !important;
-    font-weight: 800 !important;
-  }
+  .link-btn{ background: transparent !important; box-shadow: none !important; border: none !important; color: #00FFD1 !important; text-decoration: underline !important; padding: 0 !important; border-radius: 0 !important; font-weight: 800 !important; }
   .link-btn:hover{ text-decoration: underline !important; box-shadow: none !important; border: none !important; }
-
   .actions .btn{ padding: 4px 8px !important; border-radius: 9px !important; font-size: 11.5px !important; line-height: 1.2 !important; }
   .actions .btn .zh{ font-size: 11.5px !important; }
   .actions .btn .en{ font-size: 10px !important; }
@@ -280,33 +223,29 @@
   .ig-link svg{width:16px;height:16px;display:block}
   .ig-link:hover{background:linear-gradient(90deg, rgba(255,192,203,.25), rgba(255,105,180,.25));box-shadow:0 0 6px rgba(255,182,193,.4), inset 0 0 4px rgba(255,182,193,.2)}
 
-  /* ===== IG 圖示按鈕（圖片） ===== */
+  /* ===== IG 圖示按鈕（使用提供的圖片；移除底線；邊緣彩虹光暈） ===== */
   .link-btn.ig-btn{
-    position: relative !important;
-    display: inline-grid !important;
-    place-items: center !important;
-    width: 28px !important; height: 28px !important;
-    padding: 0 !important; border: none !important;
-    background: transparent !important; text-decoration: none !important;
-    border-radius: 8px !important;
+    position: relative !important; display: inline-grid !important; place-items: center !important;
+    width: 28px !important; height: 28px !important; padding: 0 !important; border: none !important;
+    background: transparent !important; text-decoration: none !important; border-radius: 8px !important;
   }
   .link-btn.ig-btn::before{
-    content:""; position:absolute; inset:-4px; border-radius:12px;
-    background: conic-gradient(#ff5f6d,#ffc371,#9be15d,#00e3ae,#45aaf2,#9b59b6,#ff5f6d);
-    filter: blur(7px); opacity:.9; z-index:-1;
+    content: "" !important; position: absolute !important; inset: -4px !important; border-radius: 12px !important;
+    background: conic-gradient(#ff5f6d,#ffc371,#9be15d,#00e3ae,#45aaf2,#9b59b6,#ff5f6d) !important;
+    filter: blur(7px) !important; opacity: .9 !important; z-index: -1 !important;
   }
-  .link-btn.ig-btn:hover{ transform: translateZ(0) scale(1.03) }
-  .link-btn.ig-btn img.ig-icon{ width:24px; height:24px; display:block; border-radius:6px; box-shadow:0 0 0 1px rgba(255,255,255,.08) inset }
+  .link-btn.ig-btn:hover{ transform: translateZ(0) scale(1.03) !important; }
+  .link-btn.ig-btn img.ig-icon{
+    width: 24px !important; height: 24px !important; display: block !important; border-radius: 6px !important;
+    box-shadow: 0 0 0 1px rgba(255,255,255,.08) inset !important;
+  }
 
   /* === 右下角上傳按鈕（RAKU.png） === */
   .cat-wrap{ position:fixed; right:12px; left:auto; bottom:12px; display:flex; gap:8px; opacity:.9; z-index:30; }
-  .cat-btn{
-    width:56px; height:56px; border-radius:50%; background:#0f1117; border:1px solid #2b3244;
-    display:grid; place-items:center; cursor:pointer; transition:transform .08s ease, box-shadow .2s; overflow:hidden; padding:0;
-  }
-  .cat-btn img.upload-icon{ width:100%; height:100%; object-fit:cover; display:block; border-radius:50% }
-  .cat-btn:hover{ box-shadow:0 0 0 2px rgba(255,255,255,.06), 0 8px 20px rgba(0,0,0,.35) }
-  .cat-btn:active{ transform:scale(.97) }
+  .cat-btn{ width:56px; height:56px; border-radius:50%; background:#0f1117; border:1px solid #2b3244; display:grid; place-items:center; cursor:pointer; transition:transform .08s ease, box-shadow .2s; overflow:hidden; padding:0; }
+  .cat-btn img.upload-icon{ width:100%; height:100%; object-fit:cover; display:block; border-radius:50%; }
+  .cat-btn:hover{ box-shadow:0 0 0 2px rgba(255,255,255,.06), 0 8px 20px rgba(0,0,0,.35); }
+  .cat-btn:active{ transform:scale(.97); }
 
   /* === Override: show full PNG (no circular crop) === */
   .cat-btn{ width:auto !important; height:auto !important; border-radius:0 !important; background:transparent !important; border:none !important; padding:0 !important; overflow:visible !important; }
@@ -314,14 +253,16 @@
 
   /* === 純漸層金色版本（無描邊，乾淨亮金） === */
   .namebar .personN{
-    font-family: 'Montserrat','Helvetica Neue','Arial',sans-serif !important;
-    background: linear-gradient(180deg,#EAD28A 0%,#D9B550 35%,#B98A32 70%,#7A6027 100%) !important;
-    -webkit-background-clip:text !important; background-clip:text !important; color:transparent !important;
-    text-align:center !important; font-weight:900 !important;
+    font-family: 'Montserrat', 'Helvetica Neue', 'Arial', sans-serif !important;
+    background: linear-gradient(180deg, #EAD28A 0%, #D9B550 35%, #B98A32 70%, #7A6027 100%) !important;
+    -webkit-background-clip: text !important; background-clip: text !important; color: transparent !important;
+    text-align: center !important; font-weight: 900 !important;
   }
-  .namebar .ig{ background:none !important; color:#BFC5C9 !important; text-align:left !important; }
+  /* IG：左對齊 + 銀灰色（保留簡潔） */
+  .namebar .ig{ background: none !important; color: #BFC5C9 !important; text-align: left !important; }
 
-  .cat-btn{ border:none !important; background:transparent !important; box-shadow:none !important; }
+  /* 移除右下角 RAKU 外框 / 底色 / 陰影 */
+  .cat-btn{ border: none !important; background: transparent !important; box-shadow: none !important; }
 </style>
 </head>
 <body>
@@ -359,7 +300,7 @@
         </div>
       </div>
 
-      <!-- 底圖預覽（上傳成功才會出現縮圖） -->
+      <!-- 底圖預覽（上傳成功／或自動載入 card.* 成功才會出現縮圖） -->
       <div id="bgPreview" class="preview" aria-label="invitation previews"></div>
 
       <div id="head" class="result-head">資料載入中… / Loading roster… <span class="spinner" aria-hidden="true"></span></div>
@@ -367,7 +308,7 @@
     </div>
   </div>
 
-  <!-- 左下角：一隻貓（上傳邀請卡底圖；僅提示密碼於 prompt，不在畫面顯示） -->
+  <!-- 右下角：RAKU（上傳邀請卡底圖；僅提示密碼於 prompt，不在畫面顯示） -->
   <div class="cat-wrap" aria-label="hidden-control">
     <div id="btnUploadBG" class="cat-btn" title="上傳邀請卡底圖 Upload invitation background">
       <img src="RAKU.png" alt="Upload background" class="upload-icon">
@@ -404,11 +345,10 @@ const PASSWORD = '0714'; // 上傳底圖保護用（僅 prompt）
 
 /* ========== (2) 狀態 ========== */
 const state = {
-  rows: [],          // 雲端 roster
-  bgImages: [],      // 舊：手動上傳底圖（保留，不影響）
-  selected: null,    // 正在 confirm 的人
-  confirmChoice: null,
-  cardBase: null     // 新：自動載入 card.* 作為底圖
+  rows: [],        // 雲端 roster
+  bgImages: [],    // 邀請卡底圖（自動載入 card.* 或手動上傳）
+  selected: null,  // 正在 confirm 的人
+  confirmChoice: null
 };
 
 /* ========== (3) 小工具 ========== */
@@ -418,9 +358,10 @@ const norm = (s)=> (s||'').toString().trim().toLowerCase();
 const unique = (arr)=>[...new Set(arr)];
 const by = (k)=>(a,b)=> (a[k]||'').localeCompare(b[k]||'');
 
-/* head 載入中樣式 */
+/* 簡易切換 head 載入中樣式（尾巴轉圈） */
 function setHeadLoading(isLoading){
-  const head = $('head'); if(!head) return;
+  const head = $('head');
+  if(!head) return;
   if(isLoading){
     head.innerHTML = '資料載入中… / Loading roster… <span class="spinner" aria-hidden="true"></span>';
   }else{
@@ -431,7 +372,10 @@ function setHeadLoading(isLoading){
 /* ========== (4) 讀雲端名單（GAS） ========== */
 async function fetchRoster(){
   try{
-    if(!WEB_APP_URL){ $('head').textContent='尚未設定資料端點 / No WEB_APP_URL'; return; }
+    if(!WEB_APP_URL){
+      $('head').textContent='尚未設定資料端點 / No WEB_APP_URL';
+      return;
+    }
     setHeadLoading(true);
     const res = await fetch(WEB_APP_URL + '?mode=roster', { method:'GET', cache:'no-store' });
     if(!res.ok) throw new Error('network');
@@ -447,8 +391,10 @@ async function fetchRoster(){
 }
 
 function rebuildDatalists(){
-  const dlN = $('nameList'); const dlI = $('igList');
-  dlN.innerHTML = ''; dlI.innerHTML = '';
+  const dlN = $('nameList');
+  const dlI = $('igList');
+  dlN.innerHTML = '';
+  dlI.innerHTML = '';
   unique(state.rows.map(r=>r.name).filter(Boolean).sort()).forEach(v=>{
     const o=document.createElement('option'); o.value=v; dlN.appendChild(o);
   });
@@ -457,15 +403,39 @@ function rebuildDatalists(){
   });
 }
 
-/* ========== (5) 舊：手動上傳底圖（保留，不影響） ========== */
-document.getElementById('btnUploadBG').addEventListener('click', ()=>{
+/* ========== (4.5) 同資料夾自動載入 card.* 作為底圖（順序嘗試） ========== */
+async function tryLoadCardBackgrounds(){
+  const candidates = ['card.png','card.jpg','card.jpeg','card.webp','card.svg'];
+  for(const name of candidates){
+    try{
+      const img = await loadImageRelative(name);
+      state.bgImages = [img];
+      renderBGPreview();
+      showToast('已自動載入 card 底圖');
+      return;
+    }catch(_){}
+  }
+  // 若沒有 card.*，保持待上傳
+}
+function loadImageRelative(src){
+  return new Promise((resolve,reject)=>{
+    const img = new Image();
+    img.onload = ()=> resolve(img);
+    img.onerror = ()=> reject(new Error('not found'));
+    img.src = src; // 與本頁同資料夾
+  });
+}
+
+/* ========== (5) 上傳邀請卡底圖（只有這個需要密碼） ========== */
+$('btnUploadBG').addEventListener('click', ()=>{
   const p = prompt('請輸入密碼 / Enter password');
   if(p===null) return;
   if(p!==PASSWORD){ showToast('密碼錯誤 / Wrong password'); return; }
-  document.getElementById('fileBG').click();
+  $('fileBG').click();
 });
-document.getElementById('fileBG').addEventListener('change', async (e)=>{
-  const files = Array.from(e.target.files||[]); if(!files.length) return;
+$('fileBG').addEventListener('change', async (e)=>{
+  const files = Array.from(e.target.files||[]);
+  if(!files.length) return;
   state.bgImages = [];
   for(const f of files){
     const img = await fileToImage(f);
@@ -476,50 +446,69 @@ document.getElementById('fileBG').addEventListener('change', async (e)=>{
   e.target.value='';
 });
 function fileToImage(file){
-  return new Promise((res,rej)=>{ const img=new Image(); img.onload=()=>res(img); img.onerror=rej; img.src=URL.createObjectURL(file); });
+  return new Promise((res,rej)=>{
+    const img=new Image();
+    img.onload=()=>res(img);
+    img.onerror=rej;
+    img.src=URL.createObjectURL(file);
+  });
 }
 function renderBGPreview(){
-  const box=document.getElementById('bgPreview'); box.innerHTML='';
-  state.bgImages.forEach(img=>{ const el=document.createElement('img'); el.src=img.src; box.appendChild(el);});
+  const box=$('bgPreview');
+  box.innerHTML='';
+  state.bgImages.forEach(img=>{
+    const el=document.createElement('img'); el.src=img.src; box.appendChild(el);
+  });
 }
 
 /* ========== (6) 搜尋 ========== */
-document.getElementById('searchBtn').addEventListener('click', search);
-document.getElementById('nameInput').addEventListener('keydown',e=>{if(e.key==='Enter') search(); renderStats();});
-document.getElementById('igInput').addEventListener('keydown',e=>{if(e.key==='Enter') search(); renderStats();});
+$('searchBtn').addEventListener('click', search);
+$('nameInput').addEventListener('keydown',e=>{if(e.key==='Enter') search(); renderStats();});
+$('igInput').addEventListener('keydown',e=>{if(e.key==='Enter') search(); renderStats();});
 
 function search(){
-  const qn = norm(document.getElementById('nameInput').value);
-  const qi = norm(document.getElementById('igInput').value);
-  if(!state.rows.length){ showToast('雲端名單尚未就緒 / Roster not ready'); return; }
-
+  const qn = norm($('nameInput').value);
+  const qi = norm($('igInput').value);
+  if(!state.rows.length){
+    showToast('雲端名單尚未就緒 / Roster not ready');
+    return;
+  }
   let sel = null;
   if(qi) sel = state.rows.find(r=>norm(r.ig)===qi);
   if(!sel && qn) sel = state.rows.find(r=>norm(r.name)===qn);
 
   let rows=[]; let leader='';
-  if(sel){ leader = sel.leader; rows = state.rows.filter(r=>norm(r.leader)===norm(leader)); }
-  else{
+  if(sel){
+    leader = sel.leader;
+    rows = state.rows.filter(r=>norm(r.leader)===norm(leader));
+  }else{
     const cand = state.rows.filter(r=> (qi && norm(r.ig).includes(qi)) || (qn && norm(r.name).includes(qn)) );
-    if(cand.length){ leader = cand[0].leader; rows = state.rows.filter(r=>norm(r.leader)===norm(leader)); }
+    if(cand.length){
+      leader = cand[0].leader;
+      rows = state.rows.filter(r=>norm(r.leader)===norm(leader));
+    }
   }
   renderList(rows, leader);
 }
 
 /* ========== (7) 列表渲染 ========== */
 function renderList(rows, leader){
-  const grid = document.getElementById('grid'); grid.innerHTML='';
-  if(!rows || !rows.length){ document.getElementById('head').textContent='查無資料 / No results'; return; }
-  document.getElementById('head').innerHTML = leader
+  const grid = $('grid');
+  grid.innerHTML='';
+  if(!rows || !rows.length){
+    $('head').textContent='查無資料 / No results';
+    return;
+  }
+  $('head').innerHTML = leader
     ? `桌長 / Leader：<b class="rbtext">${leader||'—'}</b>（${rows.length} 筆 / records）`
     : `共 ${rows.length} 筆 / records`;
 
   rows.sort((a,b)=> by('country')(a,b) || by('name')(a,b));
   for(const r of rows){ grid.appendChild(renderPerson(r)); }
 }
-
 function renderPerson(r){
-  const card = document.createElement('div'); card.className='person';
+  const card = document.createElement('div');
+  card.className='person';
 
   /* 第一行：旗 / 國家 / 姓名 / IG */
   const L1 = document.createElement('div'); L1.className='line';
@@ -533,271 +522,191 @@ function renderPerson(r){
 
   /* 第二行（左：狀態；右：開啟連結） */
   const L2 = document.createElement('div'); L2.className='line';
-  const left2 = document.createElement('div'); left2.className='left'; left2.append(buildStatus(r.status));
+  const left2 = document.createElement('div'); left2.className='left';
+  left2.append(buildStatus(r.status));
   const right2 = document.createElement('div'); right2.className='right';
   if(r.link){
     const a=document.createElement('a');
-    a.href=r.link; a.target='_blank'; a.rel='noopener noreferrer';
-    a.className='link-btn ig-btn';
-    const img=document.createElement('img');
-    img.src='pngsucai_1605688_ec16ce.png';
-    img.alt='Instagram';
-    img.className='ig-icon';
-    a.appendChild(img);
-    right2.appendChild(a);
+    a.href=r.link; a.target='_blank'; a.rel='noopener noreferrer'; a.className='link-btn ig-btn';
+    const img=document.createElement('img'); img.src='pngsucai_1605688_ec16ce.png'; img.alt='Instagram'; img.className='ig-icon';
+    a.appendChild(img); right2.appendChild(a);
   }
   L2.append(left2,right2);
 
-  /* 第三行：Confirm / Download */
+  /* 第三行：Confirm / Download（小尺寸＋中英分行） */
   const L3 = document.createElement('div'); L3.className='actions';
   const btnC = document.createElement('button'); btnC.className='btn';
   btnC.innerHTML='<span class="zh">確認</span><span class="en">Confirm</span>';
   btnC.addEventListener('click',()=> openConfirm(r));
-
   const btnD = document.createElement('button'); btnD.className='btn';
   btnD.innerHTML='<span class="zh">邀請函下載</span><span class="en">Download Invite</span>';
   btnD.addEventListener('click',()=> downloadInvite(r));
-
   L3.append(btnC, btnD);
+
   card.append(L1,L2,L3);
   return card;
 }
-
 function buildStatus(status){
   const box=document.createElement('div'); box.className='status';
   const s = (status||'').toString().trim().toLowerCase();
   let type='warn', zh='未回覆', en='Pending', iconType='warn';
   if(s==='confirmed'){ type='ok'; zh='已確定訂位'; en='Confirmed'; iconType='ok'; }
   else if(s==='cancelled'){ type='bad'; zh='取消參加'; en='Cancelled'; iconType='bad'; }
-  const badge=document.createElement('div'); badge.className='badge '+type; badge.innerHTML = svgIcon(iconType);
+  const badge=document.createElement('div'); badge.className='badge '+type;
+  badge.innerHTML = svgIcon(iconType);
   const lab=document.createElement('div'); lab.className='status-label';
   lab.innerHTML = `<span class="zh">${zh}</span><span class="en">${en}</span>`;
-  box.append(badge,lab); return box;
+  box.append(badge,lab);
+  return box;
 }
-
-/* 高質感圓形圖標：ok=勾、warn=問號、bad=叉 */
+/* 高質感圓形圖標：ok=勾、warn=問號、bad=叉（厚外圈＋深色內心＋白色符號） */
 function svgIcon(kind){
   if(kind==='ok'){
-    return `<svg viewBox="0 0 24 24" aria-hidden="true"><circle class="ring" cx="12" cy="12" r="10.5" /><path class="glyph" d="M7 12.5l3 3 6-6" /></svg>`;
+    return `<svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle class="ring" cx="12" cy="12" r="10.5" />
+      <path class="glyph" d="M7 12.5l3 3 6-6" />
+    </svg>`;
   }
   if(kind==='bad'){
-    return `<svg viewBox="0 0 24 24" aria-hidden="true"><circle class="ring" cx="12" cy="12" r="10.5" /><path class="glyph" d="M8 8l8 8M16 8l-8 8" /></svg>`;
+    return `<svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle class="ring" cx="12" cy="12" r="10.5" />
+      <path class="glyph" d="M8 8l8 8M16 8l-8 8" />
+    </svg>`;
   }
-  return `<svg viewBox="0 0 24 24" aria-hidden="true"><circle class="ring" cx="12" cy="12" r="10.5" /><text class="glyph-text" x="12" y="12">?</text></svg>`;
+  /* warn（預設） */
+  return `<svg viewBox="0 0 24 24" aria-hidden="true">
+    <circle class="ring" cx="12" cy="12" r="10.5" />
+    <text class="glyph-text" x="12" y="12">?</text>
+  </svg>`;
 }
 
 /* ========== (8) Confirm Modal ========== */
-const modal=document.getElementById('confirmBackdrop');
-const noteArea=document.getElementById('noteArea');
-const btnSubmit=document.getElementById('confirmSubmit');
+const modal=$('confirmBackdrop');
+const noteArea=$('noteArea');
+const btnSubmit=$('confirmSubmit');
 document.querySelectorAll('.opt').forEach(el=> el.addEventListener('click',()=> selectOpt(el)) );
-document.getElementById('confirmCancel').addEventListener('click', ()=> closeModal());
-
-function openConfirm(person){
-  state.selected = person; state.confirmChoice = null; noteArea.value='';
-  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('active'));
-  modal.style.display='flex';
-}
-function selectOpt(el){
-  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('active'));
-  el.classList.add('active'); state.confirmChoice = el.dataset.val;
-}
+$('confirmCancel').addEventListener('click', ()=> closeModal());
+function openConfirm(person){ state.selected = person; state.confirmChoice = null; noteArea.value=''; document.querySelectorAll('.opt').forEach(o=>o.classList.remove('active')); modal.style.display='flex'; }
+function selectOpt(el){ document.querySelectorAll('.opt').forEach(o=>o.classList.remove('active')); el.classList.add('active'); state.confirmChoice = el.dataset.val; }
 function closeModal(){ modal.style.display='none'; }
-
 btnSubmit.addEventListener('click', async ()=>{
   if(!state.confirmChoice){ showToast('請選擇一個選項 / Please choose an option'); return; }
-  const person = state.selected; if(!person){ closeModal(); return; }
+  const person = state.selected;
+  if(!person){ closeModal(); return; }
   const payload = {
     action:'updateStatus',
     item: person.item, number: person.number, country: person.country, flag: person.flag,
     name: person.name, ig: person.ig, leader: person.leader, link: person.link,
     status: state.confirmChoice, notes: noteArea.value.trim(), ts: Date.now()
   };
-
   btnSubmit.disabled=true; btnSubmit.textContent='傳送中… / Sending…';
   try{
     const res = await fetch(WEB_APP_URL, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(payload), mode:'cors', cache:'no-store' });
     let ok=false; try{ const j=await res.json(); ok=!!j.ok || Array.isArray(j); }catch{ ok=res.ok; }
     if(!ok) throw new Error('SERVER_NOK');
     person.status = state.confirmChoice;
-    showToast('已送出並更新狀態 / Submitted & updated');
-    closeModal();
-    search();
-    renderStats();
-  }catch(err){
-    console.error(err);
-    showToast('送出失敗，請稍後再試 / Failed to submit');
+    showToast('已送出並更新狀態 / Submitted & updated'); closeModal(); search(); renderStats();
+  }catch(err){ console.error(err); showToast('送出失敗，請稍後再試 / Failed to submit');
   }finally{ btnSubmit.disabled=false; btnSubmit.textContent='送出 / Submit'; }
 });
 
-/* ========== (9) Minimal QR 產生器（MIT, trimmed） ========== */
-/* 來源：Kazuhiko Arase 的 qrcode (精簡 / 內嵌) */
-(function(global){function QR8bitByte(s){this.mode=1;this.data=s;this.parsed=s}
-QR8bitByte.prototype={getLength:function(){return this.parsed.length},write:function(buff){for(var i=0;i<this.parsed.length;i++){buff.put(this.parsed.charCodeAt(i),8)}}};
-var QRMath=function(){var EXP_TABLE=new Array(256);var LOG_TABLE=new Array(256);for(var i=0;i<8;i++)EXP_TABLE[i]=1<<i;for(i=8;i<256;i++)EXP_TABLE[i]=EXP_TABLE[i-4]^EXP_TABLE[i-5]^EXP_TABLE[i-6]^EXP_TABLE[i-8];for(i=0;i<255;i++)LOG_TABLE[EXP_TABLE[i]]=i;function gexp(n){while(n<0)n+=255;while(n>=256)n-=255;return EXP_TABLE[n]}function glog(n){if(n<1)throw new Error("glog("+n+")");return LOG_TABLE[n]}return{gexp:gexp,glog:glog}}();
-function QRPolynomial(num,shift){var offset=0;while(offset<num.length&&num[offset]==0)offset++;this.num=new Array(num.length-offset+shift);for(var i=0;i<num.length-offset;i++)this.num[i]=num[i+offset]}
-QRPolynomial.prototype={get:function(i){return this.num[i]},getLength:function(){return this.num.length},multiply:function(e){var num=new Array(this.getLength()+e.getLength()-1);for(var i=0;i<this.getLength();i++)for(var j=0;j<e.getLength();j++)num[i+j]^=QRMath.gexp(QRMath.glog(this.get(i))+QRMath.glog(e.get(j)));return new QRPolynomial(num,0)},mod:function(e){if(this.getLength()-e.getLength()<0)return this;var ratio=QRMath.glog(this.get(0))-QRMath.glog(e.get(0));var num=new Array(this.getLength());for(var i=0;i<this.getLength();i++)num[i]=this.get(i);for(i=0;i<e.getLength();i++)num[i]^=QRMath.gexp(QRMath.glog(e.get(i))+ratio);return new QRPolynomial(num,0).mod(e)}};
-var QRRSBlock=function(){return{getRSBlocks:function(type,ecLevel){var rs=QRRSBlock.getRSBlockTable(type,ecLevel);var list=[];for(var i=0;i<rs.length/3;i++){var count=rs[i*3+0],total=rs[i*3+1],data=rs[i*3+2];for(var j=0;j<count;j++)list.push(new QRRSBlock(total,data))}return list},getRSBlockTable:function(type,ecLevel){var tables=RS_TABLES[ecLevel];return tables[type-1]}};function QRRSBlock(totalCount,dataCount){this.totalCount=totalCount;this.dataCount=dataCount}
-var ECC={L:1,M:0,Q:3,H:2};var RS_TABLES={};
-RS_TABLES[ECC.M]=[
-[1,26,16],[1,44,28],[1,70,44],[1,100,64],[1,134,86],[2,86,62],[2,98,70],[2,121,84],[2,146,98],[2,86,62],
-[4,101,74],[2,116,86],[4,133,98],[3,145,107],[5,109,87],[5,122,98],[1,135,107],[5,150,120],[3,141,113],[3,135,107],
-[4,144,116],[2,139,111],[4,151,121],[6,147,117],[8,132,106],[10,142,114],[8,152,122],[3,147,117],[7,146,116],[5,145,115],
-[13,145,115],[17,145,115],[17,145,115],[13,145,115],[12,151,121],[6,151,121],[17,152,122],[4,152,122],[20,147,117],[19,148,118]];
-function QRBitBuffer(){this.buffer=[],this.length=0}
-QRBitBuffer.prototype={get:function(i){return ((this.buffer[Math.floor(i/8)]>>> (7 - i%8)) & 1)==1},put:function(num,length){for(var i=0;i<length;i++)this.putBit(((num>>> (length-i-1)) & 1)==1)},putBit:function(bit){this.buffer[Math.floor(this.length/8)]|=(bit?1:0) << (7-this.length%8);this.length++}};
-var QRUtil=function(){var PATTERN_POSITION_TABLE=[[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6,28,50],[6,30,54],[6,32,58],[6,34,62],[6,26,46,66],[6,26,48,70]];
-return{getPatternPosition:function(type){return PATTERN_POSITION_TABLE[type-1]}}}();
-function QRCode(type,ecLevel){this.typeNumber=type;this.errorCorrectLevel=ecLevel;this.modules=null;this.moduleCount=0;this.dataList=[]}
-QRCode.prototype={addData:function(data){this.dataList.push(new QR8bitByte(data))},make:function(){var type=1;for(type=1;type<=10;type++){var rs=QRRSBlock.getRSBlocks(type,this.errorCorrectLevel);var buff=new QRBitBuffer();for(var i=0;i<this.dataList.length;i++){var data=this.dataList[i];buff.put(4,4);buff.put(data.getLength(),8);data.write(buff)}var totalDataCount=0;for(i=0;i<rs.length;i++)totalDataCount+=rs[i].dataCount;if(Math.ceil(buff.length/8)<=totalDataCount){this.typeNumber=type;break}}this.makeImpl()},
-makeImpl:function(){this.moduleCount=this.typeNumber*4+17;this.modules=new Array(this.moduleCount);for(var r=0;r<this.moduleCount;r++){this.modules[r]=new Array(this.moduleCount);for(var c=0;c<this.moduleCount;c++)this.modules[r][c]=null}
-this.setupPositionProbePattern(0,0);this.setupPositionProbePattern(this.moduleCount-7,0);this.setupPositionProbePattern(0,this.moduleCount-7);if(this.typeNumber>1){var pos=QRUtil.getPatternPosition(this.typeNumber);for(var i=0;i<pos.length;i++)for(var j=0;j<pos.length;j++){var row=pos[i],col=pos[j];if(this.modules[row][col]==null)this.setupPositionAdjustPattern(row,col)}}this.mapData(this.createData())},
-isDark:function(r,c){return this.modules[r][c]===true},getModuleCount:function(){return this.moduleCount},
-setupPositionProbePattern:function(row,col){for(var r=-1;r<=7;r++)for(var c=-1;c<=7;c++){if(row+r<=-1||this.moduleCount<=row+r||col+c<=-1||this.moduleCount<=col+c)continue;this.modules[row+r][col+c]=(0<=r&&r<=6&&(r==0||r==6||c==0||c==6))||(2<=r&&r<=4&&2<=c&&c<=4)}},
-setupPositionAdjustPattern:function(row,col){for(var r=-2;r<=2;r++)for(var c=-2;c<=2;c++)this.modules[row+r][col+c]=(r==-2||r==2||c==-2||c==2)||(r==0&&c==0)},
-mapData:function(data){var inc=-1,row=this.moduleCount-1,bitIndex=7,byteIndex=0;for(var col=this.moduleCount-1;col>0;col-=2){if(col==6)col--;for(;;){for(var c=0;c<2;c++){if(this.modules[row][col-c]==null){var dark=false;if(byteIndex<data.length){dark=((data[byteIndex]>>>bitIndex)&1)==1}
-this.modules[row][col-c]=dark;bitIndex--;if(bitIndex==-1){byteIndex++;bitIndex=7}}}
-row+=inc;if(row<0||this.moduleCount<=row){row-=inc;inc=-inc;break}}}},
-createData:function(){var rs=QRRSBlock.getRSBlocks(this.typeNumber,this.errorCorrectLevel);var buff=new QRBitBuffer();for(var i=0;i<this.dataList.length;i++){var data=this.dataList[i];buff.put(4,4);buff.put(data.getLength(),8);data.write(buff)}
-while(buff.length%8!=0)buff.putBit(false);var total=0;for(var i=0;i<rs.length;i++)total+=rs[i].dataCount;var data=[];for(i=0;i<total;i++)data.push(0);return data}};
-function qrcode(type,ecLevel){return new QRCode(type,ecLevel)}global.qrcode=qrcode})(this);
-
-/* ========== (10) 自動載入 card.* 作為底圖（一次載入快取） ========== */
-async function ensureCardBase(){
-  if(state.cardBase) return state.cardBase;
-  const candidates = ['card.png','card.jpg','card.jpeg','card.webp'];
-  for(const url of candidates){
-    try{
-      const img = await loadImage(url);
-      state.cardBase = img;
-      return img;
-    }catch(e){ /* try next */ }
-  }
-  throw new Error('找不到 card.* 底圖（請放在相同資料夾）');
+/* ========== (9) 邀請卡下載（只放 QRCode + number） ========== */
+/* —— 內建極小型 QR 產生器（davidshimjs/QRCode.js 的精簡版） —— */
+!function(){function l(a,b){this._el=a,this._htOption=b}
+function m(a,b){this._oErrorCorrectLevel=b,this._modules=null,this._moduleCount=0,this._dataList=[],this._dataCache=null,this.addData(a)}
+m.prototype={addData:function(a){this._dataList.push({mode:4,data:a})},make:function(){
+  for(var a=1;a<41;a++){this._moduleCount=4*a+17;this._modules=new Array(this._moduleCount);
+  for(var b=0;b<this._moduleCount;b++)this._modules[b]=new Array(this._moduleCount);
+  try{this._setupPositionProbePattern(0,0),this._setupPositionProbePattern(this._moduleCount-7,0),
+    this._setupPositionProbePattern(0,this._moduleCount-7),this._setupPositionAdjustPattern(),
+    this._setupTimingPattern(),this._setupTypeInfo(!0,0),this._mapData(this._createData(a,this._oErrorCorrectLevel));
+    return}catch(c){continue}}throw new Error("Too long data")}
+, isDark:function(a,b){if(a<0||this._moduleCount<=a||b<0||this._moduleCount<=b)throw new Error(a+","+b);return this._modules[a][b]}
+, getModuleCount:function(){return this._moduleCount}
+,_setupPositionProbePattern:function(a,b){for(var c=-1;7>=c;c++)if(!(a+c<=-1||this._moduleCount<=a+c))for(var d=-1;7>=d;d++)b+d<=-1||this._moduleCount<=b+d||(this._modules[a+c][b+d]=c>=0&&6>=c&&(0==d||6==d)||d>=0&&6>=d&&(0==c||6==c)||c>=2&&4>=c&&d>=2&&4>=d)}
+,_getBestMaskPattern:function(){return 0}
+,_setupTimingPattern:function(){for(var a=8;a<this._moduleCount-8;a++)null==this._modules[a][6]&&(this._modules[a][6]=a%2==0),null==this._modules[6][a]&&(this._modules[6][a]=a%2==0)}
+,_setupPositionAdjustPattern:function(){function a(a){return a<2?0:a<7?1:a<13?2:a<20?3:a<28?4:a<36?5:6}
+for(var b=m.PATTERN_POSITION_TABLE[a(this._moduleCount) ],c=0;c<b.length;c++)for(var d=0;d<b.length;d++){var e=b[c],f=b[d];if(null==this._modules[e][f])for(var g=-2;g<=2;g++)for(var h=-2;h<=2;h++)this._modules[e+g][f+h]=-2==g||2==g||-2==h||2==h||0==g&&0==h}
 }
-function loadImage(src){
-  return new Promise((resolve, reject)=>{
-    const img = new Image();
-    img.onload = ()=> resolve(img);
-    img.onerror = ()=> reject(new Error('load fail:'+src));
-    img.decoding = 'async';
-    img.src = src; // 同站來源，避免 taint
-  });
-}
+,_setupTypeInfo:function(){for(var a=0;a<9;a++)this._modules[a][8]=a%2==0,this._modules[8][a]=a%2==0;
+for(var b=this._moduleCount-8;b<this._moduleCount;b++)this._modules[b][8]=b%2==0,this._modules[8][b]=b%2==0}
+,_createData:function(a,b){var c=[];for(var d of this._dataList){c.push(4);var e=d.data.length;c.push((e>>8)&255),c.push(255&e);for(var i=0;i<e;i++)c.push(d.data.charCodeAt(i))}
+return c}
+,_mapData:function(a){for(var b=-1,c=this._moduleCount-1,d=7,e=0;c>0;c-=2){6==c&&c--;for(;;){for(var f=0;2>f;f++)null==this._modules[c-f][d]&&(this._modules[c-f][d]=(a[e>>3]>>(7-e%8)&1)==1,e++);if(d+=b,0>d||this._moduleCount<=d){d-=b,b=-b;break}}}}
+};m.PATTERN_POSITION_TABLE=[[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46]];
+window.SimpleQR={renderToCanvas:function(canvas,text,size){var qr=new m(text,1);qr.make();var n=qr.getModuleCount(),ctx=canvas.getContext('2d'),cc=Math.floor(size/n),s=cc*n;canvas.width=canvas.height=s;ctx.fillStyle='#fff';ctx.fillRect(0,0,s,s);ctx.fillStyle='#000';
+for(var r=0;r<n;r++)for(var c=0;c<n;c++)qr.isDark(r,c)&&ctx.fillRect(c*cc,r*cc,cc,cc);return canvas}};
+}();
 
-/* ========== (11) 邀請卡下載：以 card.* 為底圖，疊上 QR 與 number ==========
-   規格：
-   - QR 內容：person.qrcode
-   - QR 尺寸：依底圖 min(W,H) 的 22%（可調）
-   - number 字體：= QR 邊長的 1/2
-   - 整個「QR + number」區塊置於畫面「下方 1/3」區域（區塊在該區域內置中）
-====================================================================== */
+/* —— 生成：把 r.qrcode → QR，並在正下方 1/3 處印出 r.number（字體≈QR的一半） —— */
 async function downloadInvite(person){
-  const qrText = (person.qrcode || '').toString().trim();
-  if(!qrText){ showToast('此筆資料沒有 qrcode 欄位內容'); return; }
-
-  let base;
-  try{
-    base = await ensureCardBase();
-  }catch(err){
-    console.error(err);
-    showToast('找不到 card.* 底圖'); return;
+  if(!state.bgImages.length){
+    showToast('找不到邀請卡底圖，請放同資料夾的 card.* 或用 RAKU 上傳');
+    return;
   }
+  const content = (person.qrcode || '').toString();
+  const numberText = (person.number || '').toString();
+  if(!content){ showToast('此列沒有 qrcode 欄位內容'); return; }
+
+  const bg = state.bgImages[0];
+  const W = bg.naturalWidth || bg.width, H = bg.naturalHeight || bg.height;
 
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
-  const W = base.naturalWidth, H = base.naturalHeight;
   canvas.width = W; canvas.height = H;
 
-  // 畫底圖
-  ctx.drawImage(base, 0, 0, W, H);
+  // 繪底圖
+  ctx.drawImage(bg,0,0,W,H);
 
-  // 尺寸與區塊
-  const QR_SIZE = Math.round(Math.min(W,H) * 0.22);           // QR 邊長
-  const TEXT_SIZE = Math.max(12, Math.floor(QR_SIZE * 0.5));  // 字體 = QR 的 1/2
-  const GAP = Math.round(QR_SIZE * 0.08);                     // QR 與文字之間的距離
-  const blockH = QR_SIZE + GAP + TEXT_SIZE;
+  // 設定 QR 的位置與尺寸（靠右下，邊距 8%，邊長 22% 寬）
+  const margin = 0.08 * Math.min(W,H);
+  const qrSize = Math.floor(0.22 * W); // 依寬度比例
+  const qrX = Math.floor(W - margin - qrSize);
+  const qrY = Math.floor(H - margin - qrSize - (qrSize * 0.8)); // 留空間給下方文字
 
-  // 區塊放在「下方 1/3」的中間：下方三分之一的中線為 H*2/3
-  const blockCenterY = Math.round(H * (2/3));
-  const blockTop = Math.max(0, Math.min(H - blockH, blockCenterY - Math.round(blockH/2)));
-  const cx = Math.round(W/2);
+  // 產 QR 於暫存 canvas 再貼上
+  const qrCanvas = document.createElement('canvas');
+  SimpleQR.renderToCanvas(qrCanvas, content, qrSize);
+  // 加白底（已含），再畫到主畫布
+  ctx.drawImage(qrCanvas, qrX, qrY, qrSize, qrSize);
 
-  // 產生 QR matrix（ECC = M）
-  const qr = qrcode(0, 0); // 0: auto type, 0: ECC.M（對應我們精簡表）
-  qr.addData(qrText);
-  qr.make();
-  const n = qr.getModuleCount();
-  const cell = QR_SIZE / n;
+  // number：字體 ≈ QR 的 1/2，置中於 QR 正下方 1/3 處
+  const fontSize = Math.max(10, Math.floor(qrSize * 0.5));
+  ctx.font = `800 ${fontSize}px ui-sans-serif, system-ui, "Noto Sans TC","Microsoft JhengHei"`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillStyle = '#ffffff';
+  ctx.strokeStyle = 'rgba(0,0,0,.35)';
+  ctx.lineWidth = Math.ceil(fontSize * 0.12);
 
-  // 避免底圖干擾：先鋪白底（含輕微圓角）
-  roundRect(ctx, cx - Math.round(QR_SIZE/2) - 12, blockTop - 12, QR_SIZE + 24, blockH + 24, Math.max(8, Math.round(QR_SIZE*0.06)));
-  ctx.fillStyle = 'rgba(255,255,255,0.96)';
-  ctx.fill();
-
-  // 畫 QR（黑白）
-  ctx.fillStyle = '#000';
-  const qx = Math.round(cx - QR_SIZE/2);
-  const qy = blockTop;
-  for(let r=0;r<n;r++){
-    for(let c=0;c<n;c++){
-      if(qr.isDark(r,c)){
-        const x = qx + Math.round(c*cell);
-        const y = qy + Math.round(r*cell);
-        const w = Math.ceil((c+1)*cell) - Math.floor(c*cell);
-        const h = Math.ceil((r+1)*cell) - Math.floor(r*cell);
-        ctx.fillRect(x,y,w,h);
-      }
-    }
-  }
-
-  // number（置中，QR 正下方）
-  const numberText = (person.number || '').toString().trim();
-  if(numberText){
-    ctx.fillStyle = '#000';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'top';
-    ctx.font = `800 ${TEXT_SIZE}px ui-sans-serif, system-ui, "Noto Sans TC", "Microsoft JhengHei"`;
-    const ty = qy + QR_SIZE + GAP;
-    ctx.fillText(numberText, cx, ty);
-  }
+  const textCX = qrX + qrSize/2;
+  const textCY = qrY + qrSize + (qrSize/3);
+  // 先描邊再填色，提升可讀性
+  ctx.strokeText(numberText, textCX, textCY);
+  ctx.fillText(numberText, textCX, textCY);
 
   // 下載
-  const safeName = (numberText || person.name || 'guest').replace(/[^\w\u4e00-\u9fa5-]+/g,'_');
-  const a = document.createElement('a');
-  a.download = `InviteQR-${safeName}.png`;
+  const safeName = (person.name||'guest').replace(/[^\w\u4e00-\u9fa5-]+/g,'_');
+  const a=document.createElement('a');
+  a.download = `invite_${person.number||''}_${safeName}.png`;
   a.href = canvas.toDataURL('image/png');
   a.click();
-
-  showToast('邀請卡已匯出');
 }
 
-// 圓角矩形輔助
-function roundRect(ctx, x, y, w, h, r){
-  r = Math.min(r, Math.floor(Math.min(w,h)/2));
-  ctx.beginPath();
-  ctx.moveTo(x+r, y);
-  ctx.arcTo(x+w, y, x+w, y+h, r);
-  ctx.arcTo(x+w, y+h, x, y+h, r);
-  ctx.arcTo(x, y+h, x, y, r);
-  ctx.arcTo(x, y, x+w, y, r);
-  ctx.closePath();
+/* ========== (10) 啟動 ========== */
+function init(){
+  fetchRoster();
+  tryLoadCardBackgrounds(); // 自動載入 card.* 作為底圖（若存在）
 }
-
-/* ========== (12) 啟動 ========== */
-function init(){ fetchRoster(); }
 init();
 
 function renderStats(){
   const ok = state.rows.filter(r => (r.status||'').toString().trim().toLowerCase()==='confirmed').length;
   const bad = state.rows.filter(r => (r.status||'').toString().trim().toLowerCase()==='cancelled').length;
   const warn = state.rows.length - ok - bad;
-  const elOk = document.getElementById('statOk');
-  const elWarn = document.getElementById('statWarn');
-  const elBad = document.getElementById('statBad');
-  if(elOk) elOk.textContent = ok;
-  if(elWarn) elWarn.textContent = warn;
-  if(elBad) elBad.textContent = bad;
+  const elOk = $('statOk'); const elWarn = $('statWarn'); const elBad = $('statBad');
+  if(elOk) elOk.textContent = ok; if(elWarn) elWarn.textContent = warn; if(elBad) elBad.textContent = bad;
 }
 </script>
 </body>
