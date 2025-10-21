@@ -460,7 +460,7 @@
 
   /* ========== (4.5) 同資料夾自動載入 card.* 作為底圖（順序嘗試） ========== */
   async function tryLoadCardBackgrounds(){
-    const candidates = ['card6.png','card.jpg','card.jpeg','card.webp','card.svg'];
+    const candidates = ['card5.png','card.jpg','card.jpeg','card.webp','card.svg'];
     for(const name of candidates){
       try{
         const img = await loadImageRelative(name);
@@ -825,7 +825,7 @@
     ctx2.textBaseline = 'middle';
 
     // 先畫描邊陰影
-    ctx2.font = `600 ${fontSize}px "Bradley Hand ITC","Baguet Script","Times New Roman",serif`;
+    ctx2.font = `600 ${fontSize}px "Harrington","Didot","Times New Roman",serif`;
     ctx2.strokeStyle = 'rgba(0,0,0,.35)';
     ctx2.lineWidth = Math.ceil(fontSize * 0.14);
     const textCX = qrX + qrSize/2;
@@ -833,14 +833,12 @@
     ctx2.strokeText(text, textCX, textCY);
 
     // 金色漸層填色
- const grad = ctx2.createLinearGradient(textCX - qrSize, 0, textCX + qrSize, 0);
-grad.addColorStop(0.00, '#ff5f6d');  // 紅
-grad.addColorStop(0.20, '#ffc371');  // 橙
-grad.addColorStop(0.40, '#9be15d');  // 黃綠
-grad.addColorStop(0.60, '#00e3ae');  // 綠青
-grad.addColorStop(0.80, '#45aaf2');  // 藍
-grad.addColorStop(1.00, '#9b59b6');  // 紫
-    ctx2.fillStyle = #C5A572;
+    const grad = ctx2.createLinearGradient(0, textCY - fontSize, 0, textCY + fontSize);
+    grad.addColorStop(0, '#F8E7B5');
+    grad.addColorStop(0.45, '#E2C56E');
+    grad.addColorStop(0.7, '#C59A3A');
+    grad.addColorStop(1, '#7A5A26');
+    ctx2.fillStyle = grad;
     ctx2.fillText(text, textCX, textCY);
 
     // 下載與預覽
@@ -893,10 +891,10 @@ grad.addColorStop(1.00, '#9b59b6');  // 紫
     const guide = $('guideLink');
     const seat  = $('seatLink');
     if(guide){
-      guide.addEventListener('click', (e)=>{ e.preventDefault(); openStaticImage('pic1.jpg','guide.png','導覽 / Guide'); });
+      guide.addEventListener('click', (e)=>{ e.preventDefault(); openStaticImage('pic1.png','guide.png','導覽 / Guide'); });
     }
     if(seat){
-      seat.addEventListener('click', (e)=>{ e.preventDefault(); openStaticImage('pic2.jpg','seating.png','座位圖 / Seating Map'); });
+      seat.addEventListener('click', (e)=>{ e.preventDefault(); openStaticImage('pic2.png','seating.png','座位圖 / Seating Map'); });
     }
   }
   init();
@@ -914,7 +912,3 @@ grad.addColorStop(1.00, '#9b59b6');  // 紫
   </script>
 </body>
 </html>
-
-
-
-
