@@ -249,17 +249,17 @@
   /* ===== IG 圖示按鈕 ===== */
   .link-btn.ig-btn{
     position: relative !important; display: inline-grid !important; place-items: center !important;
-    width: 28px !important; height: 28px !important; padding: 0 !important; border: none !important;
-    background: transparent !important; text-decoration: none !important; border-radius: 8px !重要;
+    width: 28px !important; height: 28px !important; padding: 0 !重要; border: none !重要;
+    background: transparent !重要; text-decoration: none !重要; border-radius: 8px !重要;
   }
   .link-btn.ig-btn::before{
-    content: "" !important; position: absolute !important; inset: -4px !important; border-radius: 12px !important;
-    background: conic-gradient(#ff5f6d,#ffc371,#9be15d,#00e3ae,#45aaf2,#9b59b6,#ff5f6d) !important;
-    filter: blur(7px) !important; opacity: .9 !important; z-index: -1 !important;
+    content: "" !重要; position: absolute !重要; inset: -4px !重要; border-radius: 12px !重要;
+    background: conic-gradient(#ff5f6d,#ffc371,#9be15d,#00e3ae,#45aaf2,#9b59b6,#ff5f6d) !重要;
+    filter: blur(7px) !重要; opacity: .9 !重要; z-index: -1 !重要;
   }
-  .link-btn.ig-btn:hover{ transform: translateZ(0) scale(1.03) !important; }
+  .link-btn.ig-btn:hover{ transform: translateZ(0) scale(1.03) !重要; }
   .link-btn.ig-btn img.ig-icon{
-    width: 24px !important; height: 24px !important; display: block !important; border-radius: 6px !important; box-shadow: 0 0 0 1px rgba(255,255,255,.08) inset !important;
+    width: 24px !重要; height: 24px !重要; display: block !重要; border-radius: 6px !重要; box-shadow: 0 0 0 1px rgba(255,255,255,.08) inset !重要;
   }
 
   /* === 右下角上傳按鈕（RAKU.png） === */
@@ -270,8 +270,8 @@
   .cat-btn:active{ transform:scale(.97); }
 
   /* === Override: show full PNG (no circular crop) === */
-  .cat-btn{ width:auto !important; height:auto !important; border-radius:0 !重要; background:transparent !重要; border:none !重要; padding:0 !重要; overflow:visible !重要; }
-  .cat-btn img.upload-icon{ width:auto !重要; height:80px !重要; object-fit:contain !重要; display:block !重要; border-radius:0 !重要; }
+  .cat-btn{ width:auto !important; height:auto !important; border-radius:0 !important; background:transparent !important; border:none !important; padding:0 !important; overflow:visible !important; }
+  .cat-btn img.upload-icon{ width:auto !important; height:80px !important; object-fit:contain !important; display:block !important; border-radius:0 !important; }
 
   /* === 純漸層金色版本（無描邊，乾淨亮金） === */
   .namebar .personN{
@@ -891,10 +891,10 @@
     const guide = $('guideLink');
     const seat  = $('seatLink');
     if(guide){
-      guide.addEventListener('click', (e)=>{ e.preventDefault(); openStaticImage('pic1.jpg','guide.png','導覽 / Guide'); });
+      guide.addEventListener('click', (e)=>{ e.preventDefault(); openStaticImage('pic1.png','guide.png','導覽 / Guide'); });
     }
     if(seat){
-      seat.addEventListener('click', (e)=>{ e.preventDefault(); openStaticImage('pic2.jpg','seating.png','座位圖 / Seating Map'); });
+      seat.addEventListener('click', (e)=>{ e.preventDefault(); openStaticImage('pic2.png','seating.png','座位圖 / Seating Map'); });
     }
   }
   init();
@@ -912,4 +912,3 @@
   </script>
 </body>
 </html>
-
