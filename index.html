@@ -1,4 +1,4 @@
-<!doctype html> 
+<!doctype html>
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8" />
@@ -224,7 +224,7 @@
   }
   .link-btn{
     background: transparent !important; box-shadow: none !important; border: none !important;
-    color: #00FFD1 !重要; text-decoration: underline !important; padding: 0 !important; border-radius: 0 !重要; font-weight: 800 !important;
+    color: #00FFD1 !重要; text-decoration: underline !important; padding: 0 !important; border-radius: 0 !important; font-weight: 800 !important;
   }
   .link-btn:hover{ text-decoration: underline !important; box-shadow: none !important; border: none !important; }
   .actions .btn{ padding: 4px 8px !important; border-radius: 9px !important; font-size: 11.5px !important; line-height: 1.2 !important; }
@@ -255,7 +255,7 @@
   .link-btn.ig-btn::before{
     content: "" !important; position: absolute !important; inset: -4px !important; border-radius: 12px !important;
     background: conic-gradient(#ff5f6d,#ffc371,#9be15d,#00e3ae,#45aaf2,#9b59b6,#ff5f6d) !important;
-    filter: blur(7px) !important; opacity: .9 !important; z-index: -1 !重要;
+    filter: blur(7px) !important; opacity: .9 !important; z-index: -1 !important;
   }
   .link-btn.ig-btn:hover{ transform: translateZ(0) scale(1.03) !important; }
   .link-btn.ig-btn img.ig-icon{
@@ -764,7 +764,7 @@
     }
   });
 
-  /* ========== (9) 邀請卡下載：文字改為「number - item」，黑色字＋彩虹光暈 ========== */
+  /* ========== (9) 邀請卡下載：文字改為「number - item」，高級廣告字體＋金色漸層 ========== */
   async function downloadInvite(person){
     if(!state.bgImages.length){
       showToast('找不到邀請卡底圖，請放同資料夾的 card.* 或用 RAKU 上傳'); return;
@@ -818,42 +818,21 @@
     const ctx2 = ctx;
     ctx2.drawImage(qrImg, qrX, qrY, qrSize, qrSize);
 
-    // number - item：字體為 QR 的 1/4，置於 QR 正下方 1/3；黑色字 + 彩虹光暈
+    // number - item：字體為 QR 的 1/4，置於 QR 正下方 1/3；金色漸層
     const text = (numberText || '') + (itemText ? ' - ' + itemText : '');
     const fontSize = Math.max(10, Math.floor(qrSize * 0.25));
     ctx2.textAlign = 'center';
     ctx2.textBaseline = 'middle';
+
+    // 先畫描邊陰影
     ctx2.font = `600 ${fontSize}px "Harrington","Didot","Times New Roman",serif`;
+    ctx2.strokeStyle = 'rgba(0,0,0,.35)';
+    ctx2.lineWidth = Math.ceil(fontSize * 0.14);
     const textCX = qrX + qrSize/2;
     const textCY = qrY + qrSize + (qrSize/3);
-
-    // === 彩虹光暈（多層描邊） ===
-    const haloGrad = ctx2.createLinearGradient(textCX - qrSize, textCY, textCX + qrSize, textCY); // 橫向彩虹
-    haloGrad.addColorStop(0.00, '#ff5f6d');
-    haloGrad.addColorStop(0.20, '#ffc371');
-    haloGrad.addColorStop(0.40, '#9be15d');
-    haloGrad.addColorStop(0.60, '#00e3ae');
-    haloGrad.addColorStop(0.80, '#45aaf2');
-    haloGrad.addColorStop(1.00, '#9b59b6');
-
-    ctx2.save();
-    ctx2.lineJoin = 'round';
-    ctx2.lineCap  = 'round';
-    ctx2.strokeStyle = haloGrad;
-    // 外圈→內圈，三層描邊疊加出柔和光暈
-    [0.36, 0.26, 0.18].forEach(w=>{
-      ctx2.globalAlpha = 0.95;
-      ctx2.lineWidth = Math.ceil(fontSize * w);
-      ctx2.strokeText(text, textCX, textCY);
-    });
-    ctx2.restore();
-
-    // 細黑描邊（讓字緣更銳利）
-    ctx2.strokeStyle = 'rgba(0,0,0,.35)';
-    ctx2.lineWidth = Math.max(1, Math.floor(fontSize * 0.08));
     ctx2.strokeText(text, textCX, textCY);
 
-    // 黑色實心字
+    // 金色漸層填色
     ctx2.fillStyle = '#000000';
     ctx2.fillText(text, textCX, textCY);
 
