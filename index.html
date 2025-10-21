@@ -52,6 +52,11 @@
   input,button{width:100%;padding:11px 12px;border-radius:12px;border:1px solid var(--border);background:#0f1117;color:#0f1117;color:var(--fg);outline:none;font-size:14px}
   input::placeholder{color:#6b7280}
 
+  /* 右上方：導覽／座位圖連結區（同一行、靠右；僅文字分行） */
+  .quick-links{display:flex;flex-direction:row;justify-content:flex-end;gap:14px;margin-bottom:6px}
+  .quick-links a{font-size:12px;line-height:1.15;opacity:.95;text-align:right}
+  .quick-links small{display:block;opacity:.85}
+
   /* 搜尋按鈕：漸層青色 */
   button.primary{background:var(--btn-grad);border:0;color:#0b0c10;font-weight:900;letter-spacing:.2px}
   button.primary:hover{filter:saturate(1.08);}
@@ -169,7 +174,7 @@
   }
   @keyframes spin{to{transform:rotate(360deg)}}
 
-  /* === 状態文字彩色光暈（未回覆=橘 / 已確認=綠 / 取消=紅） === */
+  /* === 狀態文字彩色光暈（付款版） === */
   .status .badge.warn + .status-label .zh,
   .status .badge.warn + .status-label .en{
     text-shadow:0 0 6px rgba(245,158,11,.65), 0 0 12px rgba(245,158,11,.35);
@@ -192,12 +197,12 @@
     font-weight: 900 !important;
   }
 
-  /* ===== Overrides for status colors, buttons, and link button per request ===== */
+  /* ===== Overrides for status colors, buttons, and link button ===== */
   .status .badge.ok + .status-label .zh, .status .badge.ok + .status-label .en{
     color:#47D45A !important; font-weight:900 !important; text-shadow:0 0 6px rgba(71,212,90,.65) !important;
   }
   .status .badge.warn + .status-label .zh, .status .badge.warn + .status-label .en{
-    color:#FFC000 !important; font-weight:900 !important; text-shadow:0 0 6px rgba(255,192,0,.6) !important;
+    color:#FFC000 !important; font-weight:900 !important; text-shadow:0 0 6px rgba(255,192,0,.6) !重要;
   }
   .status .badge.bad + .status-label .zh, .status .badge.bad + .status-label .en{
     color:#C00000 !important; font-weight:900 !important; text-shadow:0 0 6px rgba(192,0,0,.6) !important;
@@ -222,7 +227,7 @@
   .link-btn:hover{ text-decoration: underline !important; box-shadow: none !important; border: none !important; }
   .actions .btn{ padding: 4px 8px !important; border-radius: 9px !important; font-size: 11.5px !important; line-height: 1.2 !important; }
   .actions .btn .zh{ font-size: 11.5px !important; }
-  .actions .btn .en{ font-size: 10px !重要; }
+  .actions .btn .en{ font-size: 10px !important; }
 
   /* === 狀態統計列（首頁） === */
   .stats{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 10px}
@@ -243,7 +248,7 @@
   .link-btn.ig-btn{
     position: relative !important; display: inline-grid !important; place-items: center !important;
     width: 28px !important; height: 28px !important; padding: 0 !important; border: none !important;
-    background: transparent !important; text-decoration: none !important; border-radius: 8px !important;
+    background: transparent !important; text-decoration: none !important; border-radius: 8px !重要;
   }
   .link-btn.ig-btn::before{
     content: "" !important; position: absolute !important; inset: -4px !important; border-radius: 12px !important;
@@ -263,8 +268,8 @@
   .cat-btn:active{ transform:scale(.97); }
 
   /* === Override: show full PNG (no circular crop) === */
-  .cat-btn{ width:auto !important; height:auto !重要; border-radius:0 !重要; background:transparent !重要; border:none !重要; padding:0 !重要; overflow:visible !重要; }
-  .cat-btn img.upload-icon{ width:auto !重要; height:80px !重要; object-fit:contain !重要; display:block !重要; border-radius:0 !重要; }
+  .cat-btn{ width:auto !important; height:auto !important; border-radius:0 !important; background:transparent !important; border:none !important; padding:0 !important; overflow:visible !important; }
+  .cat-btn img.upload-icon{ width:auto !important; height:80px !important; object-fit:contain !important; display:block !important; border-radius:0 !important; }
 
   /* === 純漸層金色版本（無描邊，乾淨亮金） === */
   .namebar .personN{
@@ -291,14 +296,19 @@
     </div>
     <div class="rainbow-line"></div>
 
-    <!-- 狀態統計（首頁） -->
+    <!-- 狀態統計（付款版：已付款／未付款） -->
     <div id="stats" class="stats" aria-label="status summary">
-      <div class="chip ok"><span class="dot"></span><span class="lab">已確認</span><b class="num" id="statOk">0</b></div>
-      <div class="chip warn"><span class="dot"></span><span class="lab">未回覆</span><b class="num" id="statWarn">0</b></div>
-      <div class="chip bad"><span class="dot"></span><span class="lab">取消</span><b class="num" id="statBad">0</b></div>
+      <div class="chip ok"><span class="dot"></span><span class="lab">已付款</span><b class="num" id="statOk">0</b></div>
+      <div class="chip bad"><span class="dot"></span><span class="lab">未付款</span><b class="num" id="statBad">0</b></div>
     </div>
 
     <div class="card">
+      <!-- 右上：導覽／座位圖（同一行，靠右；僅文字分行） -->
+      <div class="quick-links" aria-label="quick links">
+        <a href="pic1.png" target="_blank" rel="noopener">導覽<br><small>Guide</small></a>
+        <a href="pic2.png" target="_blank" rel="noopener">座位圖<br><small>Seating Map</small></a>
+      </div>
+
       <!-- 搜尋列 -->
       <div class="row">
         <div class="input-wrap">
@@ -338,7 +348,7 @@
   <!-- 隱藏 input（只剩底圖） -->
   <input id="fileBG" type="file" accept="image/*" style="display:none" />
 
-  <!-- Confirm Modal -->
+  <!-- Confirm Modal（保留原機制） -->
   <div id="confirmBackdrop" class="backdrop">
     <div class="modal">
       <div class="title2">出席確認 / Attendance Confirmation</div>
@@ -355,21 +365,20 @@
     </div>
   </div>
 
-  <!-- 新增：邀請函預覽 Modal -->
+  <!-- 邀請函預覽 Modal（按鈕文案已改成 download/close） -->
   <div id="previewBackdrop" class="backdrop">
     <div class="modal" style="width:min(860px,96vw);">
       <div class="title2">邀請函預覽 / Invite Preview</div>
       <div class="rb"></div>
       <div style="max-height:70vh;overflow:auto;display:grid;place-items:center;padding:6px;">
-        <!-- [PATCH] 讓預覽預設看到整張 -->
         <img id="invitePreviewImg" alt="Invite preview"
              style="max-width:100%; max-height:68vh; height:auto; object-fit:contain; border-radius:12px; border:1px solid #2b3244"/>
       </div>
       <div class="actions">
         <a id="btnDownloadPNG" class="btn btn-fill" href="#" download="invite.png">
-          <span class="zh">下載 PNG</span><span class="en">Download PNG</span>
+          download
         </a>
-        <button id="previewClose" class="btn btn-line"><span class="zh">關閉</span><span class="en">Close</span></button>
+        <button id="previewClose" class="btn btn-line">close</button>
       </div>
     </div>
   </div>
@@ -544,7 +553,7 @@
     renderList(rows, leader);
   }
 
-  /* ========== (7) 列表渲染 ========== */
+  /* ========== (7) 列表渲染（付款狀態文字） ========== */
   function renderList(rows, leader){
     const grid = $('grid');
     grid.innerHTML='';
@@ -552,7 +561,6 @@
       $('head').textContent='查無資料 / No results';
       return;
     }
-    // 修正：用模板字串
     $('head').innerHTML = leader
       ? `桌長 / Leader：<b class="rbtext">${leader||'—'}</b>（${rows.length} 筆 / records）`
       : `共 ${rows.length} 筆 / records`;
@@ -592,12 +600,12 @@
     left1.append(flag, ctry, personN, ig);
     L1.append(left1);
 
-    /* 第二行（左：狀態；右：開啟連結） */
+    /* 第二行（左：付款狀態；右：開啟連結） */
     const L2 = document.createElement('div');
     L2.className='line';
     const left2 = document.createElement('div');
     left2.className='left';
-    left2.append(buildStatus(r.status));
+    left2.append(buildStatus(r.pay_status));
 
     const right2 = document.createElement('div');
     right2.className='right';
@@ -635,14 +643,20 @@
     return card;
   }
 
-  function buildStatus(status){
+  /* ===== 付款狀態：僅分「已付款(綠)／未付款(紅)」，來源為 pay_status ===== */
+  function buildStatus(payStatus){
     const box=document.createElement('div');
     box.className='status';
-    const s = (status||'').toString().trim().toLowerCase();
+    const s = (payStatus||'').toString().trim().toLowerCase();
 
-    let type='warn', zh='未回覆', en='Pending', iconType='warn';
-    if(s==='confirmed'){ type='ok'; zh='已確定訂位'; en='Confirmed'; iconType='ok'; }
-    else if(s==='cancelled'){ type='bad'; zh='取消參加'; en='Cancelled'; iconType='bad'; }
+    // 視為「已付款」的常見值
+    const paidSet = new Set(['paid','pay','yes','y','true','1','已付款','付清','完成付款']);
+    const isPaid = paidSet.has(s);
+
+    const type = isPaid ? 'ok' : 'bad';
+    const zh   = isPaid ? '已付款' : '未付款';
+    const en   = isPaid ? 'Paid'   : 'Unpaid';
+    const iconType = isPaid ? 'ok' : 'bad';
 
     const badge=document.createElement('div');
     badge.className='badge '+type;
@@ -650,14 +664,13 @@
 
     const lab=document.createElement('div');
     lab.className='status-label';
-    // 修正：用模板字串
     lab.innerHTML = `<span class="zh">${zh}</span><span class="en">${en}</span>`;
 
     box.append(badge,lab);
     return box;
   }
 
-  /* 高質感圓形圖標：ok=勾、warn=問號、bad=叉（厚外圈＋深色內心＋白色符號） */
+  /* 高質感圓形圖標：ok=勾、bad=叉（厚外圈＋深色內心＋白色符號） */
   function svgIcon(kind){
     if(kind==='ok'){
       return `
@@ -666,22 +679,15 @@
           <path class="glyph" d="M7 12.5l3 3 6-6" />
         </svg>`;
     }
-    if(kind==='bad'){
-      return `
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <circle class="ring" cx="12" cy="12" r="10.5" />
-          <path class="glyph" d="M8 8l8 8M16 8l-8 8" />
-        </svg>`;
-    }
-    /* warn（預設） */
+    /* bad（未付款） */
     return `
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <circle class="ring" cx="12" cy="12" r="10.5" />
-        <text class="glyph-text" x="12" y="12">?</text>
+        <path class="glyph" d="M8 8l8 8M16 8l-8 8" />
       </svg>`;
   }
 
-  /* ========== (8) Confirm Modal ========== */
+  /* ========== (8) Confirm Modal（保留原流程） ========== */
   const modal=$('confirmBackdrop');
   const noteArea=$('noteArea');
   const btnSubmit=$('confirmSubmit');
@@ -756,14 +762,14 @@
     }
   });
 
-  /* ========== (9) 邀請卡下載（底部中間 QR + 較小 number，並以彈窗預覽） ========== */
-  /* —— 外部 API 產生 QR：api.qrserver.com —— */
+  /* ========== (9) 邀請卡下載：文字改為「number - item」，高級廣告字體＋金色漸層 ========== */
   async function downloadInvite(person){
     if(!state.bgImages.length){
       showToast('找不到邀請卡底圖，請放同資料夾的 card.* 或用 RAKU 上傳'); return;
     }
     const content = (person.qrcode || '').toString().trim();
     const numberText = (person.number || '').toString();
+    const itemText = (person.item || '').toString();
     if(!content){
       showToast('此列沒有 qrcode 欄位內容'); return;
     }
@@ -791,7 +797,6 @@
     const encoded = encodeURIComponent(content);
     const apiURL = `https://api.qrserver.com/v1/create-qr-code/?size=${qrSize}x${qrSize}&ecc=M&data=${encoded}`;
 
-    // [PATCH] 先綁事件再設 src，避免快取極速回應漏觸發
     const qrImg = new Image();
     qrImg.crossOrigin = 'anonymous';
     const loaded = new Promise((resolve,reject)=>{
@@ -810,20 +815,30 @@
     // 貼上 QR（底部中間）
     ctx.drawImage(qrImg, qrX, qrY, qrSize, qrSize);
 
-    // number：字體為 QR 的 1/4，置於 QR 正下方 1/3
+    // number - item：字體為 QR 的 1/4，置於 QR 正下方 1/3；金色漸層
+    const text = (numberText || '') + (itemText ? ' - ' + itemText : '');
     const fontSize = Math.max(10, Math.floor(qrSize * 0.25));
-    ctx.font = `800 ${fontSize}px ui-sans-serif, system-ui, "Noto Sans TC","Microsoft JhengHei"`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillStyle = '#ffffff';
-    ctx.strokeStyle = 'rgba(0,0,0,.38)';
+
+    // 先畫描邊陰影
+    ctx.font = `600 ${fontSize}px "Bodoni Moda","Didot","Times New Roman",serif`;
+    ctx.strokeStyle = 'rgba(0,0,0,.35)';
     ctx.lineWidth = Math.ceil(fontSize * 0.14);
     const textCX = qrX + qrSize/2;
     const textCY = qrY + qrSize + (qrSize/3);
-    ctx.strokeText(numberText, textCX, textCY);
-    ctx.fillText(numberText, textCX, textCY);
+    ctx.strokeText(text, textCX, textCY);
 
-    // [PATCH] 下載：改用 Blob URL（更穩定）＋ 同時供預覽
+    // 金色漸層填色
+    const grad = ctx.createLinearGradient(0, textCY - fontSize, 0, textCY + fontSize);
+    grad.addColorStop(0, '#F8E7B5');
+    grad.addColorStop(0.45, '#E2C56E');
+    grad.addColorStop(0.7, '#C59A3A');
+    grad.addColorStop(1, '#7A5A26');
+    ctx.fillStyle = grad;
+    ctx.fillText(text, textCX, textCY);
+
+    // 下載與預覽
     try {
       const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
       if (!blob) throw new Error('TO_BLOB_FAILED');
@@ -837,9 +852,7 @@
       dl.download = `invite_${person.number||''}_${safeName}.png`;
       dl.href = url;
 
-      // 點擊下載後延遲釋放
       dl.onclick = () => setTimeout(()=> URL.revokeObjectURL(url), 4000);
-
       openPreview();
     } catch (e) {
       console.error(e);
@@ -849,9 +862,8 @@
 
   /* === 預覽彈窗控制 === */
   const previewBackdrop = $('previewBackdrop');
-  $('previewClose').addEventListener('click', closePreview);
+  $('previewClose').addEventListener('click', ()=>{ previewBackdrop.style.display='none'; });
   function openPreview(){ previewBackdrop.style.display='flex'; }
-  function closePreview(){ previewBackdrop.style.display='none'; }
 
   /* ========== (10) 啟動 ========== */
   function init(){
@@ -860,19 +872,16 @@
   }
   init();
 
+  /* ===== 統計改為付款語意：Paid / Unpaid（來源 pay_status） ===== */
   function renderStats(){
-    const ok = state.rows.filter(r => (r.status||'').toString().trim().toLowerCase()==='confirmed').length;
-    const bad = state.rows.filter(r => (r.status||'').toString().trim().toLowerCase()==='cancelled').length;
-    const warn = state.rows.length - ok - bad;
-    const elOk = $('statOk');
-    const elWarn = $('statWarn');
-    const elBad = $('statBad');
-    if(elOk) elOk.textContent = ok;
-    if(elWarn) elWarn.textContent = warn;
-    if(elBad) elBad.textContent = bad;
+    const paidSet = new Set(['paid','pay','yes','y','true','1','已付款','付清','完成付款']);
+    const paid = state.rows.filter(r => paidSet.has((r.pay_status||'').toString().trim().toLowerCase())).length;
+    const unpaid = state.rows.length - paid;
+    const elOk = document.getElementById('statOk');
+    const elBad = document.getElementById('statBad');
+    if(elOk) elOk.textContent = paid;   // 已付款
+    if(elBad) elBad.textContent = unpaid; // 未付款
   }
   </script>
 </body>
 </html>
-
-
