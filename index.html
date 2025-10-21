@@ -825,7 +825,7 @@
     ctx2.textBaseline = 'middle';
 
     // 先畫描邊陰影
-    ctx2.font = `600 ${fontSize}px "Bodoni Moda","Didot","Times New Roman",serif`;
+    ctx2.font = `600 ${fontSize}px "Pacifico","Didot","Times New Roman",serif`;
     ctx2.strokeStyle = 'rgba(0,0,0,.35)';
     ctx2.lineWidth = Math.ceil(fontSize * 0.14);
     const textCX = qrX + qrSize/2;
@@ -833,11 +833,13 @@
     ctx2.strokeText(text, textCX, textCY);
 
     // 金色漸層填色
-    const grad = ctx2.createLinearGradient(0, textCY - fontSize, 0, textCY + fontSize);
-    grad.addColorStop(0, '#F8E7B5');
-    grad.addColorStop(0.45, '#E2C56E');
-    grad.addColorStop(0.7, '#C59A3A');
-    grad.addColorStop(1, '#7A5A26');
+ const grad = ctx2.createLinearGradient(textCX - qrSize, 0, textCX + qrSize, 0);
+grad.addColorStop(0.00, '#ff5f6d');  // 紅
+grad.addColorStop(0.20, '#ffc371');  // 橙
+grad.addColorStop(0.40, '#9be15d');  // 黃綠
+grad.addColorStop(0.60, '#00e3ae');  // 綠青
+grad.addColorStop(0.80, '#45aaf2');  // 藍
+grad.addColorStop(1.00, '#9b59b6');  // 紫
     ctx2.fillStyle = grad;
     ctx2.fillText(text, textCX, textCY);
 
@@ -912,5 +914,6 @@
   </script>
 </body>
 </html>
+
 
 
